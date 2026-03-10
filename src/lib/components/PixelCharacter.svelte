@@ -337,26 +337,28 @@
 		border-radius: 2px;
 		z-index: 1;
 	}
-	.hair-messy-long .char-hair { height: 20px; border-radius: 45% 45% 10% 10%; }
+	.hair-messy-long .char-hair { height: 14px; border-radius: 45% 45% 20% 20%; }
 	.hair-messy-long .char-hair::before {
 		content: '';
 		position: absolute;
-		top: 6px;
-		left: -3px;
-		width: 10px;
+		top: 8px;
+		left: -4px;
+		width: 8px;
 		height: 16px;
 		background: var(--hair-color);
 		border-radius: 3px;
+		z-index: -1;
 	}
 	.hair-messy-long .char-hair::after {
 		content: '';
 		position: absolute;
-		top: 6px;
-		right: -3px;
-		width: 8px;
+		top: 8px;
+		right: -4px;
+		width: 7px;
 		height: 14px;
 		background: var(--hair-color);
 		border-radius: 3px;
+		z-index: -1;
 	}
 	.hair-neat-side .char-hair { border-radius: 50% 50% 35% 35%; }
 	.hair-neat-side .char-hair::before {
