@@ -667,7 +667,7 @@
 	/* ═══ LARGE CURVED DESK ═══ */
 	.shared-desk {
 		position: absolute;
-		bottom: 43%;
+		bottom: 51%;
 		left: 6%;
 		right: 6%;
 		height: 60px;
@@ -794,7 +794,7 @@
 	/* ═══ PLANTS (tall trees) ═══ */
 	.plant {
 		position: absolute;
-		bottom: 40%;
+		bottom: 48%;
 		z-index: 7;
 	}
 	.plant.left { left: 1%; }
@@ -875,7 +875,7 @@
 		bottom: 1%;
 		left: 5%;
 		right: 5%;
-		height: 24%;
+		height: 32%;
 		display: flex;
 		gap: 5px;
 		justify-content: center;
@@ -931,7 +931,7 @@
 	/* ═══ WORKSTATION WRAP ═══ */
 	.workstation-wrap {
 		position: absolute;
-		bottom: 44%;
+		bottom: 52%;
 		width: 120px;
 		display: flex;
 		flex-direction: column;
