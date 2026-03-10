@@ -16,6 +16,20 @@
 	const agentCount = $derived(team?.agents.length ?? 0);
 	const teamStatus: TeamStatus = $derived(teamKey === 'miles' ? $milesStatus : $pmoStatus);
 
+	// Dynamic scaling: fewer agents = bigger characters, better space usage
+	const agentScale = $derived(
+		agentCount <= 3 ? 1.65 :
+		agentCount <= 4 ? 1.45 :
+		agentCount <= 5 ? 1.3 :
+		1.2
+	);
+	// Tighter spread for fewer agents
+	const spreadPct = $derived(
+		agentCount <= 3 ? { start: 20, range: 60 } :
+		agentCount <= 4 ? { start: 14, range: 72 } :
+		{ start: 10, range: 80 }
+	);
+
 	function getAgentState(agentId: string): AgentState {
 		const status = teamStatus[agentId];
 		return (status?.state as AgentState) ?? 'idle';
@@ -181,7 +195,7 @@
 				<!-- Name badges as green pills -->
 				{#if team}
 					{#each team.agents as agent, idx}
-						{@const pillPct = agentCount === 1 ? 50 : (15 + idx * (70 / (agentCount - 1)))}
+						{@const pillPct = agentCount === 1 ? 50 : (spreadPct.start + idx * (spreadPct.range / (agentCount - 1)))}
 						<div class="name-pill" style="left:{pillPct}%">
 							{agent.name}
 						</div>
@@ -202,11 +216,11 @@
 		<!-- AGENTS AT DESK -->
 		{#if team}
 			{#each team.agents as agent, idx}
-				{@const pct = agentCount === 1 ? 50 : (15 + idx * (70 / (agentCount - 1)))}
+				{@const pct = agentCount === 1 ? 50 : (spreadPct.start + idx * (spreadPct.range / (agentCount - 1)))}
 				{@const agentState = getAgentState(agent.id)}
 				<div
 					class="workstation-wrap {agentState}"
-					style="left:{pct}%;--agent-color:{agent.color}"
+					style="left:{pct}%;--agent-color:{agent.color};--agent-scale:{agentScale}"
 				>
 					<!-- Monitor -->
 					<div class="monitor">
@@ -653,9 +667,9 @@
 	/* ═══ LARGE CURVED DESK ═══ */
 	.shared-desk {
 		position: absolute;
-		bottom: 28%;
-		left: 8%;
-		right: 8%;
+		bottom: 26%;
+		left: 6%;
+		right: 6%;
 		height: 60px;
 		z-index: 8;
 	}
@@ -917,14 +931,14 @@
 	/* ═══ WORKSTATION WRAP ═══ */
 	.workstation-wrap {
 		position: absolute;
-		bottom: 37%;
+		bottom: 33%;
 		width: 120px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		transition: all 0.5s ease;
 		z-index: 6;
-		transform: translateX(-50%) scale(1.25);
+		transform: translateX(-50%) scale(var(--agent-scale, 1.25));
 		transform-origin: bottom center;
 	}
 	/* Hide default PixelCharacter labels — names are on desk pills, status below desk */
@@ -957,7 +971,7 @@
 	/* ── Monitor (larger desktop style) ── */
 	.monitor {
 		position: absolute;
-		bottom: 32px;
+		bottom: 16px;
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 9;
