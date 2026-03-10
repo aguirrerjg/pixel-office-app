@@ -3,8 +3,10 @@
 	import { Header, OfficeScene } from '$lib/components';
 	import { TEAMS, startPolling, stopPolling } from '$lib/stores';
 
+	const STATUS_URL = import.meta.env.VITE_STATUS_URL || '/api/status.json';
+
 	onMount(() => {
-		startPolling('/api/status.json');
+		startPolling(STATUS_URL);
 	});
 
 	onDestroy(() => {
