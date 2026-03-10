@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { health } from '$lib/stores';
 
-	let clock = $state('--:--:--');
+	let clock = $state(new Date().toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
 
 	$effect(() => {
 		const interval = setInterval(() => {

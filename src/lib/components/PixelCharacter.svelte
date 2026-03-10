@@ -19,7 +19,7 @@
 	<span class="ws-role">{agent.role}</span>
 </div>
 
-<!-- Character (sits behind desk, z-index 1) -->
+<!-- Character -->
 <div class="char-wrap {agentState}">
 	<div class="character" style="--jacket-color:{agent.jacket};--shirt-color:{agent.shirt};--skin-color:{agent.skinColor}">
 		<div class="char-torso"></div>
@@ -33,24 +33,31 @@
 			<div class="char-mouth-part"></div>
 		</div>
 	</div>
-	<!-- Think bubble -->
+	<!-- Think bubble — CSS pure -->
 	<div class="think-bubble">
-		<div class="think-cloud">💭</div>
-		<div class="think-dot"></div>
-		<div class="think-dot"></div>
+		<div class="think-cloud">
+			<span class="td"></span><span class="td"></span><span class="td"></span>
+		</div>
+		<div class="think-trail t1"></div>
+		<div class="think-trail t2"></div>
 	</div>
 </div>
 
 <!-- Status label BELOW desk -->
 <div class="ws-label-bottom">
-	<span class="ws-status {agentState}">{agentState}</span>
+	<span class="ws-status {agentState}">
+		{#if agentState === 'working' || agentState === 'thinking'}
+			<span class="si"></span>
+		{/if}
+		{agentState}
+	</span>
 	{#if activity}
-		<span class="ws-activity">{activity}</span>
+		<span class="ws-activity" title={activity}>{activity}</span>
 	{/if}
 </div>
 
 <style>
-	/* ── Labels above character ── */
+	/* ═══ LABELS ═══ */
 	.ws-label-top {
 		position: absolute;
 		bottom: 115px;
@@ -75,8 +82,6 @@
 		color: #4d5570;
 		letter-spacing: 0.3px;
 	}
-
-	/* ── Labels below desk ── */
 	.ws-label-bottom {
 		position: absolute;
 		bottom: -22px;
@@ -97,11 +102,38 @@
 		border-radius: 4px;
 		letter-spacing: 0.8px;
 		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		gap: 4px;
 	}
 	.ws-status.idle { background: rgba(40, 45, 65, 0.85); color: #8090a8; }
 	.ws-status.working { background: rgba(0, 60, 70, 0.85); color: #00e5ff; text-shadow: 0 0 4px rgba(0,229,255,0.4); }
 	.ws-status.thinking { background: rgba(50, 30, 80, 0.85); color: #c8a0ff; text-shadow: 0 0 4px rgba(179,136,255,0.4); }
 	.ws-status.activating { background: rgba(70, 50, 0, 0.85); color: #ffcc33; text-shadow: 0 0 4px rgba(255,179,0,0.4); }
+
+	/* Status indicator dot */
+	.si {
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		display: inline-block;
+		flex-shrink: 0;
+	}
+	.ws-status.working .si {
+		background: #00e5ff;
+		box-shadow: 0 0 4px #00e5ff;
+		animation: siPulse 1s ease-in-out infinite;
+	}
+	.ws-status.thinking .si {
+		background: #c8a0ff;
+		box-shadow: 0 0 4px #c8a0ff;
+		animation: siPulse 2s ease-in-out infinite;
+	}
+	@keyframes siPulse {
+		0%, 100% { opacity: 1; transform: scale(1); }
+		50% { opacity: 0.3; transform: scale(0.5); }
+	}
+
 	.ws-activity {
 		font-family: 'Fira Code', monospace;
 		font-size: 8px;
@@ -109,13 +141,13 @@
 		background: rgba(20, 24, 32, 0.75);
 		padding: 1px 6px;
 		border-radius: 3px;
-		max-width: 130px;
+		max-width: 160px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		text-align: center;
 	}
 
-	/* ── Character container (behind desk) ── */
+	/* ═══ CHARACTER CONTAINER ═══ */
 	.char-wrap {
 		position: absolute;
 		bottom: 2px;
@@ -125,21 +157,18 @@
 		height: 80px;
 		z-index: 1;
 	}
-
 	.character {
 		position: absolute;
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 1;
-		transition: all 0.6s ease;
 	}
-
 	.char-wrap .character { --char-y: 0px; }
 	.char-wrap.working .character { --char-y: -4px; }
 	.char-wrap.thinking .character { --char-y: -20px; }
 
-	/* Torso */
+	/* ═══ BODY PARTS ═══ */
 	.char-torso {
 		position: relative;
 		width: 30px;
@@ -162,7 +191,6 @@
 		clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
 	}
 
-	/* Arms */
 	.char-arm-l, .char-arm-r {
 		position: absolute;
 		top: 4px;
@@ -188,37 +216,6 @@
 		background: var(--skin-color);
 	}
 
-	/* Working: typing */
-	.char-wrap.working .char-arm-l { animation: typeL 0.35s ease-in-out infinite alternate; }
-	.char-wrap.working .char-arm-r { animation: typeR 0.35s ease-in-out infinite alternate-reverse; }
-	@keyframes typeL {
-		0% { transform: translateY(var(--char-y, 0)) rotate(20deg) translateY(0); }
-		100% { transform: translateY(var(--char-y, 0)) rotate(0deg) translateY(-8px); }
-	}
-	@keyframes typeR {
-		0% { transform: translateY(var(--char-y, 0)) rotate(-20deg) translateY(0); }
-		100% { transform: translateY(var(--char-y, 0)) rotate(0deg) translateY(-8px); }
-	}
-	.char-wrap.working .char-head { animation: workBob 1.2s ease-in-out infinite; }
-	@keyframes workBob {
-		0%, 100% { transform: translateX(-50%) translateY(var(--char-y, 0)); }
-		50% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 3px)); }
-	}
-
-	/* Thinking */
-	.char-wrap.thinking .char-arm-l { transform: translateY(var(--char-y, 0)) rotate(15deg); animation: thinkSway 3s ease-in-out infinite; }
-	.char-wrap.thinking .char-arm-r { transform: translateY(var(--char-y, 0)) rotate(-70deg) translateY(-14px); }
-	@keyframes thinkSway {
-		0%, 100% { transform: translateY(var(--char-y, 0)) rotate(15deg); }
-		50% { transform: translateY(var(--char-y, 0)) rotate(10deg); }
-	}
-	.char-wrap.thinking .char-head { animation: thinkTilt 3s ease-in-out infinite !important; }
-	@keyframes thinkTilt {
-		0%, 100% { transform: translateX(-50%) translateY(var(--char-y, 0)) rotate(0); }
-		50% { transform: translateX(-50%) translateY(var(--char-y, 0)) rotate(5deg); }
-	}
-
-	/* Neck */
 	.char-neck-part {
 		position: absolute;
 		top: -6px;
@@ -231,7 +228,6 @@
 		transition: transform 0.6s ease;
 	}
 
-	/* Head */
 	.char-head {
 		position: absolute;
 		top: -36px;
@@ -245,17 +241,120 @@
 		z-index: 5;
 	}
 
-	/* Idle breathing */
-	.char-wrap.idle .char-torso { animation: breathe 3s ease-in-out infinite; }
-	.char-wrap.idle .char-head { animation: headBob 3s ease-in-out infinite; }
-	.char-wrap.idle .char-arm-l { animation: idleArmL 4s ease-in-out infinite; }
-	.char-wrap.idle .char-arm-r { animation: idleArmR 4s ease-in-out infinite; }
-	@keyframes breathe { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-2px) scaleY(1.04); } }
-	@keyframes headBob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-3px); } }
-	@keyframes idleArmL { 0%, 100% { transform: rotate(12deg); } 50% { transform: rotate(8deg); } }
-	@keyframes idleArmR { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(-8deg); } }
+	/* ═══ IDLE STATE ═══ */
+	/* Breathing — asymmetric for natural feel */
+	.char-wrap.idle .char-torso { animation: breathe 4s ease-in-out infinite; }
+	@keyframes breathe {
+		0%, 100% { transform: translateY(var(--char-y, 0)) scaleY(1); }
+		40% { transform: translateY(calc(var(--char-y, 0) - 2px)) scaleY(1.04); }
+		70% { transform: translateY(calc(var(--char-y, 0) - 1px)) scaleY(1.02); }
+	}
 
-	/* Eyes */
+	/* Head — subtle wander with tilts */
+	.char-wrap.idle .char-head { animation: idleHead 8s ease-in-out infinite; }
+	@keyframes idleHead {
+		0%, 100% { transform: translateX(-50%) translateY(var(--char-y, 0)) rotate(0); }
+		20% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 2px)) rotate(0); }
+		45% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 1px)) rotate(2deg); }
+		65% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 3px)) rotate(-1.5deg); }
+		85% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 1px)) rotate(0.5deg); }
+	}
+
+	/* Arms — gentle sway, different timing */
+	.char-wrap.idle .char-arm-l { animation: idleArmL 5s ease-in-out infinite; }
+	.char-wrap.idle .char-arm-r { animation: idleArmR 6s ease-in-out infinite; }
+	@keyframes idleArmL {
+		0%, 100% { transform: translateY(var(--char-y, 0)) rotate(12deg); }
+		35% { transform: translateY(var(--char-y, 0)) rotate(7deg); }
+		65% { transform: translateY(var(--char-y, 0)) rotate(14deg); }
+	}
+	@keyframes idleArmR {
+		0%, 100% { transform: translateY(var(--char-y, 0)) rotate(-12deg); }
+		40% { transform: translateY(var(--char-y, 0)) rotate(-7deg); }
+		75% { transform: translateY(var(--char-y, 0)) rotate(-15deg); }
+	}
+
+	/* ═══ WORKING STATE ═══ */
+	/* Typing — bursts with natural pauses */
+	.char-wrap.working .char-arm-l { animation: typeL 3s ease-in-out infinite; }
+	.char-wrap.working .char-arm-r { animation: typeR 3s ease-in-out infinite 0.08s; }
+	@keyframes typeL {
+		0% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		5% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		10% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		15% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		20% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		25% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		30% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		/* pause — reading/thinking */
+		35%, 50% { transform: translateY(var(--char-y, 0)) rotate(14deg) translateY(-2px); }
+		/* burst 2 */
+		55% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		60% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		65% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		70% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		75% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		80% { transform: translateY(var(--char-y, 0)) rotate(18deg); }
+		85% { transform: translateY(var(--char-y, 0)) rotate(2deg) translateY(-6px); }
+		/* settle */
+		92%, 100% { transform: translateY(var(--char-y, 0)) rotate(16deg); }
+	}
+	@keyframes typeR {
+		0% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		5% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		10% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		15% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		20% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		25% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		30% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		/* pause */
+		35%, 50% { transform: translateY(var(--char-y, 0)) rotate(-14deg) translateY(-2px); }
+		/* burst 2 */
+		55% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		60% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		65% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		70% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		75% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		80% { transform: translateY(var(--char-y, 0)) rotate(-18deg); }
+		85% { transform: translateY(var(--char-y, 0)) rotate(-2deg) translateY(-6px); }
+		/* settle */
+		92%, 100% { transform: translateY(var(--char-y, 0)) rotate(-16deg); }
+	}
+
+	/* Head — focused bob */
+	.char-wrap.working .char-head { animation: workHead 2s ease-in-out infinite; }
+	@keyframes workHead {
+		0%, 100% { transform: translateX(-50%) translateY(var(--char-y, 0)); }
+		40% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 2px)); }
+		60% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 3px)); }
+	}
+
+	/* ═══ THINKING STATE ═══ */
+	/* Left arm — gentle sway */
+	.char-wrap.thinking .char-arm-l { animation: thinkSwayL 4s ease-in-out infinite; }
+	@keyframes thinkSwayL {
+		0%, 100% { transform: translateY(var(--char-y, 0)) rotate(15deg); }
+		50% { transform: translateY(var(--char-y, 0)) rotate(8deg); }
+	}
+
+	/* Right arm — chin rest with subtle wobble */
+	.char-wrap.thinking .char-arm-r { animation: chinRest 5s ease-in-out infinite; }
+	@keyframes chinRest {
+		0%, 100% { transform: translateY(var(--char-y, 0)) rotate(-70deg) translateY(-14px); }
+		30% { transform: translateY(var(--char-y, 0)) rotate(-65deg) translateY(-13px); }
+		70% { transform: translateY(var(--char-y, 0)) rotate(-72deg) translateY(-14px); }
+	}
+
+	/* Head — tilt with nod */
+	.char-wrap.thinking .char-head { animation: thinkHead 4s ease-in-out infinite !important; }
+	@keyframes thinkHead {
+		0%, 100% { transform: translateX(-50%) translateY(var(--char-y, 0)) rotate(0); }
+		30% { transform: translateX(-50%) translateY(var(--char-y, 0)) rotate(6deg); }
+		60% { transform: translateX(-50%) translateY(calc(var(--char-y, 0) - 2px)) rotate(3deg); }
+		80% { transform: translateX(-50%) translateY(var(--char-y, 0)) rotate(5deg); }
+	}
+
+	/* ═══ EYES ═══ */
 	.char-eyes {
 		position: absolute;
 		top: 13px;
@@ -289,9 +388,34 @@
 		0%, 44%, 50%, 100% { transform: scaleY(1); }
 		46%, 48% { transform: scaleY(0.1); }
 	}
+
+	/* Idle: eyes look around via highlight shift */
+	.char-wrap.idle .char-eye::before {
+		animation: eyeGaze 10s ease-in-out infinite;
+	}
+	@keyframes eyeGaze {
+		0%, 28% { left: 1.5px; top: 0.5px; }
+		32%, 38% { left: 3px; top: 0.5px; }
+		42%, 68% { left: 1.5px; top: 0.5px; }
+		72%, 78% { left: 0px; top: 0.5px; }
+		82%, 100% { left: 1.5px; top: 0.5px; }
+	}
+
+	/* Working: focused, no blink */
 	.char-wrap.working .char-eye { animation: none; }
 
-	/* Mouth */
+	/* Thinking: eyes drift up, slower blink */
+	.char-wrap.thinking .char-eye { animation: blink 7s ease-in-out infinite; }
+	.char-wrap.thinking .char-eye::before {
+		animation: eyeUp 5s ease-in-out infinite;
+	}
+	@keyframes eyeUp {
+		0%, 100% { top: 0px; left: 1.5px; }
+		40% { top: -0.5px; left: 2px; }
+		70% { top: 0px; left: 1px; }
+	}
+
+	/* ═══ MOUTH ═══ */
 	.char-mouth-part {
 		position: absolute;
 		bottom: 5px;
@@ -307,7 +431,7 @@
 	.char-wrap.working .char-mouth-part { width: 4px; height: 2px; border-radius: 0 0 2px 2px; background: rgba(0, 0, 0, 0.08); }
 	.char-wrap.thinking .char-mouth-part { width: 3px; height: 3px; border-radius: 50%; background: rgba(0, 0, 0, 0.06); }
 
-	/* ── Hair Styles ── */
+	/* ═══ HAIR STYLES ═══ */
 	.char-hair {
 		position: absolute;
 		top: -2px;
@@ -397,8 +521,7 @@
 		border-radius: 3px;
 	}
 
-	/* ── Accessories ── */
-	/* Glasses: two lenses + bridge */
+	/* ═══ ACCESSORIES ═══ */
 	.acc-glasses .char-eyes::after {
 		content: '';
 		position: absolute;
@@ -439,43 +562,64 @@
 		z-index: 7;
 	}
 
-	/* ── Think bubble ── */
+	/* ═══ THINK BUBBLE (CSS pure) ═══ */
 	.think-bubble {
 		position: absolute;
-		top: -10px;
-		right: -5px;
+		top: -14px;
+		right: -8px;
 		z-index: 10;
 		opacity: 0;
 		transition: opacity 0.5s;
 		pointer-events: none;
 	}
 	.char-wrap.thinking .think-bubble { opacity: 1; }
-	.think-dot {
-		width: 5px;
-		height: 5px;
-		border-radius: 50%;
-		background: rgba(179, 136, 255, 0.5);
-		position: absolute;
-	}
-	.think-dot:nth-child(2) { bottom: 0; right: 4px; animation: dotFade 2s ease-in-out infinite; }
-	.think-dot:nth-child(3) { bottom: 10px; right: 10px; width: 7px; height: 7px; animation: dotFade 2s ease-in-out 0.3s infinite; }
 	.think-cloud {
-		width: 36px;
-		height: 24px;
-		background: rgba(179, 136, 255, 0.2);
-		border: 1.5px solid rgba(179, 136, 255, 0.35);
-		border-radius: 12px;
 		display: flex;
+		gap: 3px;
 		align-items: center;
 		justify-content: center;
-		font-size: 14px;
+		width: 32px;
+		height: 22px;
+		background: rgba(179, 136, 255, 0.15);
+		border: 1.5px solid rgba(179, 136, 255, 0.3);
+		border-radius: 12px;
 		animation: thinkFloat 2.5s ease-in-out infinite;
 		box-shadow: 0 0 12px rgba(179, 136, 255, 0.15);
 	}
-	@keyframes thinkFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-	@keyframes dotFade { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+	.td {
+		display: block;
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: rgba(179, 136, 255, 0.8);
+		animation: dotBounce 1.4s ease-in-out infinite;
+	}
+	.td:nth-child(2) { animation-delay: 0.15s; }
+	.td:nth-child(3) { animation-delay: 0.3s; }
+	@keyframes dotBounce {
+		0%, 100% { transform: translateY(0); opacity: 0.4; }
+		50% { transform: translateY(-3px); opacity: 1; }
+	}
 
-	/* Activating */
+	/* Trail circles */
+	.think-trail {
+		position: absolute;
+		border-radius: 50%;
+		background: rgba(179, 136, 255, 0.25);
+		animation: trailFade 2s ease-in-out infinite;
+	}
+	.think-trail.t1 { width: 6px; height: 6px; bottom: -6px; right: 6px; }
+	.think-trail.t2 { width: 4px; height: 4px; bottom: -10px; right: 2px; animation-delay: 0.3s; }
+	@keyframes trailFade {
+		0%, 100% { opacity: 0.3; transform: scale(0.8); }
+		50% { opacity: 0.7; transform: scale(1.1); }
+	}
+	@keyframes thinkFloat {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-6px); }
+	}
+
+	/* ═══ ACTIVATING ═══ */
 	.char-wrap.activating .character { animation: standUp 1.2s ease-out forwards; }
 	@keyframes standUp {
 		0% { transform: translateX(-50%) translateY(0); }

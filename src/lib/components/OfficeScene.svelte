@@ -230,7 +230,7 @@
 				{#if team}
 					{#each team.agents as agent, idx}
 						{@const pillPct = agentCount === 1 ? 50 : (spreadPct.start + idx * (spreadPct.range / (agentCount - 1)))}
-						<div class="name-pill" style="left:{pillPct}%">
+						<div class="name-pill" style="left:{pillPct}%;--pill-color:{agent.color}">
 							{agent.name}
 						</div>
 					{/each}
@@ -737,7 +737,7 @@
 		position: absolute;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		background: linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
+		background: color-mix(in srgb, var(--pill-color, #4caf50) 70%, #1a1a2e 30%);
 		color: #fff;
 		font-family: 'Chakra Petch', monospace;
 		font-size: 10px;
@@ -1013,12 +1013,23 @@
 		animation: screenFlicker 2.5s ease-in-out infinite;
 	}
 	@keyframes screenFlicker { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+	/* Idle: screensaver glow */
+	.workstation-wrap.idle .screen-glow {
+		background: linear-gradient(135deg, rgba(20,35,60,0.3) 0%, rgba(15,25,50,0.1) 50%, rgba(30,20,55,0.2) 100%);
+		background-size: 300% 300%;
+		animation: screensaver 10s ease-in-out infinite;
+	}
+	@keyframes screensaver {
+		0%, 100% { background-position: 0% 0%; }
+		33% { background-position: 100% 50%; }
+		66% { background-position: 50% 100%; }
+	}
 	.screen-lines {
 		position: absolute; inset: 3px;
 		display: flex; flex-direction: column;
 		gap: 2px; padding: 1px;
 	}
-	.screen-lines :global(.screen-line) { height: 2px; border-radius: 1px; opacity: 0.3; }
+	.screen-lines :global(.screen-line) { height: 2px; border-radius: 1px; opacity: 0.12; }
 	.workstation-wrap.working .screen-lines :global(.screen-line) { animation: typeLine 1s ease-in-out infinite; opacity: 0.7; }
 	.workstation-wrap.thinking .screen-lines :global(.screen-line) { animation: typeLine 3s ease-in-out infinite; opacity: 0.4; }
 	@keyframes typeLine { 0% { width: 0; } 30% { width: 100%; } 60% { width: 40%; } 100% { width: 80%; } }
