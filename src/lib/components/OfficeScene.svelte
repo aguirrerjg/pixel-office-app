@@ -44,33 +44,76 @@
 		</div>
 	</header>
 	<div class="ws-area">
-		<!-- ═══ BACK WALL ═══ -->
+		<!-- BACK WALL -->
 		<div class="back-wall">
-			<!-- Window (right side) -->
+			<div class="wall-trim-top"></div>
+			<!-- World Map (left side) -->
+			<div class="world-map">
+				<div class="map-frame">
+					<div class="map-canvas">
+						<!-- Continents as dot clusters -->
+						<div class="continent na"></div>
+						<div class="continent sa"></div>
+						<div class="continent eu"></div>
+						<div class="continent af"></div>
+						<div class="continent as"></div>
+						<div class="continent oc"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Window (right side) with city skyline -->
 			<div class="window">
 				<div class="window-frame">
 					<div class="window-pane left">
-						<div class="window-view"></div>
+						<div class="window-sky">
+							<div class="skyline">
+								<div class="building b1"></div>
+								<div class="building b2"></div>
+								<div class="building b3"></div>
+								<div class="building b4"></div>
+								<div class="building b5"></div>
+								<div class="building b6"></div>
+								<div class="building b7"></div>
+								<div class="building b8"></div>
+							</div>
+							<div class="trees-line"></div>
+						</div>
 					</div>
 					<div class="window-pane right">
-						<div class="window-view"></div>
+						<div class="window-sky">
+							<div class="skyline">
+								<div class="building b9"></div>
+								<div class="building b10"></div>
+								<div class="building b11"></div>
+								<div class="building b12"></div>
+								<div class="building b13"></div>
+								<div class="building b14"></div>
+							</div>
+							<div class="trees-line"></div>
+						</div>
 					</div>
 					<div class="window-divider-v"></div>
 					<div class="window-divider-h"></div>
 				</div>
 			</div>
-			<!-- World map / tech pattern (left side) -->
-			<div class="wall-art">
-				<div class="circuit-line c1"></div>
-				<div class="circuit-line c2"></div>
-				<div class="circuit-line c3"></div>
-				<div class="circuit-dot d1"></div>
-				<div class="circuit-dot d2"></div>
-				<div class="circuit-dot d3"></div>
-				<div class="circuit-dot d4"></div>
-			</div>
-			<!-- Bookshelf left -->
+
+			<!-- Bookshelf left (wall-mounted with brackets) -->
 			<div class="bookshelf left">
+				<div class="shelf-bracket bl"></div>
+				<div class="shelf-bracket br"></div>
+				<div class="shelf-board"></div>
+				<div class="book b1"></div>
+				<div class="book b2"></div>
+				<div class="book b3"></div>
+				<div class="book b4"></div>
+				<div class="book b5"></div>
+				<div class="book b6"></div>
+			</div>
+			<!-- Bookshelf right -->
+			<div class="bookshelf right">
+				<div class="shelf-bracket bl"></div>
+				<div class="shelf-bracket br"></div>
 				<div class="shelf-board"></div>
 				<div class="book b1"></div>
 				<div class="book b2"></div>
@@ -78,39 +121,49 @@
 				<div class="book b4"></div>
 				<div class="book b5"></div>
 			</div>
-			<!-- Bookshelf right -->
-			<div class="bookshelf right">
-				<div class="shelf-board"></div>
-				<div class="book b1"></div>
-				<div class="book b2"></div>
-				<div class="book b3"></div>
-				<div class="book b4"></div>
+
+			<!-- Circuit board pattern (lower wall between bookshelves and desk) -->
+			<div class="circuit-panel">
+				<div class="circuit-line ch1"></div>
+				<div class="circuit-line ch2"></div>
+				<div class="circuit-line ch3"></div>
+				<div class="circuit-line ch4"></div>
+				<div class="circuit-line cv1"></div>
+				<div class="circuit-line cv2"></div>
+				<div class="circuit-line cv3"></div>
+				<div class="circuit-line cv4"></div>
+				<div class="circuit-line cv5"></div>
+				<div class="circuit-dot cd1"></div>
+				<div class="circuit-dot cd2"></div>
+				<div class="circuit-dot cd3"></div>
+				<div class="circuit-dot cd4"></div>
+				<div class="circuit-dot cd5"></div>
+				<div class="circuit-dot cd6"></div>
+				<div class="circuit-dot cd7"></div>
+				<div class="circuit-dot cd8"></div>
+				<div class="circuit-chip cp1"></div>
+				<div class="circuit-chip cp2"></div>
 			</div>
 		</div>
 
-		<!-- ═══ FLOOR ═══ -->
+		<!-- FLOOR (warm light wood) -->
 		<div class="floor">
 			<div class="floor-plank p1"></div>
 			<div class="floor-plank p2"></div>
 			<div class="floor-plank p3"></div>
 			<div class="floor-plank p4"></div>
+			<div class="floor-plank p5"></div>
+			<div class="floor-plank p6"></div>
 		</div>
 
-		<!-- ═══ SHARED DESK ═══ -->
-		<div class="shared-desk">
-			<div class="desk-surface"></div>
-			<div class="desk-front"></div>
-			<div class="desk-leg dl"></div>
-			<div class="desk-leg dr"></div>
-		</div>
-
-		<!-- ═══ PLANTS ═══ -->
+		<!-- PLANTS (tall trees in terracotta pots) -->
 		<div class="plant left">
 			<div class="pot"></div>
 			<div class="trunk"></div>
 			<div class="foliage f1"></div>
 			<div class="foliage f2"></div>
 			<div class="foliage f3"></div>
+			<div class="foliage f4"></div>
 		</div>
 		<div class="plant right">
 			<div class="pot"></div>
@@ -118,26 +171,38 @@
 			<div class="foliage f1"></div>
 			<div class="foliage f2"></div>
 			<div class="foliage f3"></div>
+			<div class="foliage f4"></div>
 		</div>
 
-		<!-- ═══ SERVER RACKS (bottom) ═══ -->
-		<div class="server-area">
-			{#each Array(Math.min(agentCount, 5)) as _, i}
-				<div class="server-rack">
-					<div class="rack-unit ru1"></div>
-					<div class="rack-unit ru2"></div>
-					<div class="rack-unit ru3"></div>
-					<div class="rack-led l1"></div>
-					<div class="rack-led l2"></div>
-					<div class="rack-led l3"></div>
-				</div>
-			{/each}
+		<!-- LARGE CURVED DESK -->
+		<div class="shared-desk">
+			<div class="desk-surface"></div>
+			<div class="desk-front-panel">
+				<!-- Name badges as green pills -->
+				{#if team}
+					{#each team.agents as agent, idx}
+						{@const pillPct = agentCount === 1 ? 50 : (15 + idx * (70 / (agentCount - 1)))}
+						<div class="name-pill" style="left:{pillPct}%">
+							{agent.name}
+						</div>
+					{/each}
+				{/if}
+			</div>
+			<div class="desk-leg dl"></div>
+			<div class="desk-leg dr"></div>
+			<!-- Coffee mug on desk -->
+			<div class="coffee-mug">
+				<div class="mug-body"></div>
+				<div class="mug-handle"></div>
+				<div class="mug-steam s1"></div>
+				<div class="mug-steam s2"></div>
+			</div>
 		</div>
 
-		<!-- ═══ AGENTS AT DESK ═══ -->
+		<!-- AGENTS AT DESK -->
 		{#if team}
 			{#each team.agents as agent, idx}
-				{@const pct = agentCount === 1 ? 50 : (12 + idx * (76 / (agentCount - 1)))}
+				{@const pct = agentCount === 1 ? 50 : (15 + idx * (70 / (agentCount - 1)))}
 				{@const agentState = getAgentState(agent.id)}
 				<div
 					class="workstation-wrap {agentState}"
@@ -166,6 +231,25 @@
 				</div>
 			{/each}
 		{/if}
+
+		<!-- SERVER RACKS (bottom) -->
+		<div class="server-area">
+			{#each Array(Math.min(agentCount + 2, 6)) as _, i}
+				<div class="server-rack">
+					<div class="rack-unit ru1"></div>
+					<div class="rack-unit ru2"></div>
+					<div class="rack-unit ru3"></div>
+					<div class="rack-led l1"></div>
+					<div class="rack-led l2"></div>
+					<div class="rack-led l3"></div>
+					<!-- Colored cables -->
+					<div class="cable c-red" style="left:{4+i*2}px"></div>
+					<div class="cable c-green" style="left:{10+i*2}px"></div>
+					<div class="cable c-blue" style="left:{16+i*2}px"></div>
+					<div class="cable c-yellow" style="left:{22+i*2}px"></div>
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -174,11 +258,11 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		background: #1a130d;
-		border: 1px solid rgba(180, 140, 80, 0.15);
+		background: #2a1f14;
+		border: 1px solid rgba(180, 140, 80, 0.2);
 		border-radius: 8px;
 		overflow: hidden;
-		min-height: 280px;
+		min-height: 420px;
 	}
 
 	.office-header {
@@ -186,7 +270,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 8px 16px;
-		background: linear-gradient(180deg, #2a1f14 0%, #1e1610 100%);
+		background: linear-gradient(180deg, #3a2d1e 0%, #2a1f14 100%);
 		border-bottom: 1px solid rgba(180, 140, 80, 0.15);
 	}
 	.header-left { display: flex; align-items: center; gap: 8px; }
@@ -213,8 +297,8 @@
 		flex: 1;
 		position: relative;
 		overflow: hidden;
-		min-height: 220px;
-		background: linear-gradient(180deg, #3a2d1e 0%, #2e2318 40%, #251c12 100%);
+		min-height: 380px;
+		background: #c4a46e;
 	}
 
 	/* ═══ BACK WALL ═══ */
@@ -223,362 +307,635 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 52%;
-		background:
-			linear-gradient(180deg, #5a4530 0%, #4d3a28 60%, #3a2d1e 100%);
-		border-bottom: 3px solid #2a1f14;
+		height: 55%;
+		background: linear-gradient(180deg, #c4a878 0%, #b89a6a 50%, #a88d5c 100%);
+		border-bottom: 4px solid #8a7550;
 		z-index: 0;
 	}
-	/* Wood grain texture on wall */
+	/* Horizontal wood plank lines */
 	.back-wall::before {
 		content: '';
 		position: absolute;
 		inset: 0;
 		background:
-			repeating-linear-gradient(90deg, transparent 0px, transparent 60px, rgba(0,0,0,0.03) 60px, rgba(0,0,0,0.03) 61px),
-			repeating-linear-gradient(0deg, transparent 0px, transparent 8px, rgba(255,220,160,0.02) 8px, rgba(255,220,160,0.02) 9px);
+			repeating-linear-gradient(180deg,
+				transparent 0px, transparent 14px,
+				rgba(0,0,0,0.06) 14px, rgba(0,0,0,0.06) 15px,
+				transparent 15px, transparent 16px
+			),
+			repeating-linear-gradient(180deg,
+				transparent 0px, transparent 7px,
+				rgba(0,0,0,0.025) 7px, rgba(0,0,0,0.025) 8px
+			);
+		z-index: 0;
 	}
-	/* Wainscoting / lower wall panel */
+	/* Lower wall panel (wainscoting - slightly darker) with wood trim molding */
 	.back-wall::after {
 		content: '';
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 45%;
-		background: linear-gradient(180deg, #3d3025 0%, #352a1e 100%);
-		border-top: 2px solid #4a3928;
+		height: 42%;
+		background: linear-gradient(180deg, #b89868 0%, #a88a58 100%);
+		border-top: 4px solid #d4b888;
+		box-shadow: 0 -1px 0 #8a7040, 0 -6px 0 -2px rgba(200,170,120,0.3);
 	}
 
-	/* ── Window ── */
+	/* Wall top trim/molding */
+	.wall-trim-top {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 6px;
+		background: linear-gradient(180deg, #d4b888 0%, #c4a878 50%, #b89868 100%);
+		border-bottom: 1px solid #a08858;
+		z-index: 4;
+	}
+
+	/* ── World Map ── */
+	.world-map {
+		position: absolute;
+		top: 6%;
+		left: 4%;
+		width: 38%;
+		height: 52%;
+		z-index: 2;
+	}
+	.map-frame {
+		width: 100%;
+		height: 100%;
+		background: #d4bf94;
+		border: 4px solid #8a7350;
+		border-radius: 2px;
+		position: relative;
+		box-shadow: 2px 3px 8px rgba(0,0,0,0.25);
+		overflow: hidden;
+	}
+	.map-canvas {
+		position: absolute;
+		inset: 4px;
+		background: #c8b080;
+		background-image:
+			radial-gradient(circle 1px, #a08858 1px, transparent 1px);
+		background-size: 6px 6px;
+	}
+	/* Continents as darker dot clusters */
+	.continent {
+		position: absolute;
+		background-image:
+			radial-gradient(circle 1.5px, #8a7040 1px, transparent 1.5px);
+		background-size: 4px 4px;
+	}
+	.continent.na { top: 15%; left: 10%; width: 25%; height: 28%; border-radius: 30% 40% 50% 20%; }
+	.continent.sa { top: 48%; left: 18%; width: 14%; height: 30%; border-radius: 40% 30% 50% 40%; }
+	.continent.eu { top: 12%; left: 42%; width: 16%; height: 20%; border-radius: 40% 50% 30% 30%; }
+	.continent.af { top: 30%; left: 42%; width: 16%; height: 35%; border-radius: 30% 40% 45% 35%; }
+	.continent.as { top: 10%; left: 55%; width: 30%; height: 38%; border-radius: 40% 30% 45% 25%; }
+	.continent.oc { top: 55%; left: 72%; width: 18%; height: 18%; border-radius: 40% 50% 30% 40%; }
+
+	/* ── Window with City Skyline ── */
 	.window {
 		position: absolute;
-		top: 8%;
-		right: 8%;
-		width: 35%;
-		height: 70%;
+		top: 4%;
+		right: 5%;
+		width: 40%;
+		height: 60%;
 		z-index: 2;
 	}
 	.window-frame {
 		width: 100%;
 		height: 100%;
-		background: #3a2a18;
-		border: 3px solid #5a4530;
+		background: #7a6540;
+		border: 4px solid #6b5530;
 		border-radius: 2px;
 		position: relative;
 		overflow: hidden;
-		box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+		box-shadow: inset 0 0 12px rgba(0,0,0,0.2), 2px 3px 8px rgba(0,0,0,0.2);
 	}
 	.window-pane {
 		position: absolute;
-		top: 3px;
-		bottom: 3px;
+		top: 4px;
+		bottom: 4px;
 		overflow: hidden;
 	}
-	.window-pane.left { left: 3px; right: 52%; }
-	.window-pane.right { left: 52%; right: 3px; }
-	.window-view {
+	.window-pane.left { left: 4px; right: 52%; }
+	.window-pane.right { left: 52%; right: 4px; }
+	.window-sky {
 		width: 100%;
 		height: 100%;
-		background:
-			linear-gradient(180deg,
-				#87ceeb 0%,
-				#a8d8ea 30%,
-				#c8e6c9 55%,
-				#81c784 65%,
-				#4caf50 75%,
-				#388e3c 85%,
-				#2e7d32 100%
-			);
+		background: linear-gradient(180deg,
+			#87ceeb 0%,
+			#a8dce8 35%,
+			#b8e8d0 55%,
+			#90c87a 70%,
+			#70b060 85%,
+			#5a9a48 100%
+		);
+		position: relative;
 	}
+	/* Building skyline silhouettes */
+	.skyline {
+		position: absolute;
+		bottom: 40%;
+		left: 0;
+		right: 0;
+		height: 35%;
+	}
+	.building {
+		position: absolute;
+		bottom: 0;
+		background: rgba(160, 150, 130, 0.6);
+		border-radius: 1px 1px 0 0;
+	}
+	.building::before {
+		content: '';
+		position: absolute;
+		inset: 2px;
+		background:
+			repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(255,255,255,0.25) 3px, rgba(255,255,255,0.25) 4px),
+			repeating-linear-gradient(90deg, transparent 0px, transparent 4px, rgba(255,255,255,0.15) 4px, rgba(255,255,255,0.15) 5px);
+	}
+	/* Left pane buildings */
+	.building.b1 { left: 2%; width: 14%; height: 45%; background: rgba(140,130,110,0.65); }
+	.building.b2 { left: 14%; width: 10%; height: 70%; background: rgba(150,140,120,0.6); }
+	.building.b3 { left: 22%; width: 16%; height: 55%; background: rgba(130,125,105,0.6); }
+	.building.b4 { left: 36%; width: 12%; height: 85%; background: rgba(145,135,115,0.65); }
+	.building.b5 { left: 46%; width: 14%; height: 40%; background: rgba(155,145,125,0.55); }
+	.building.b6 { left: 58%; width: 10%; height: 60%; background: rgba(140,130,110,0.6); }
+	.building.b7 { left: 66%; width: 18%; height: 50%; background: rgba(135,128,108,0.6); }
+	.building.b8 { left: 82%; width: 16%; height: 65%; background: rgba(150,140,120,0.6); }
+	/* Right pane buildings */
+	.building.b9 { left: 4%; width: 16%; height: 60%; background: rgba(145,135,115,0.6); }
+	.building.b10 { left: 18%; width: 12%; height: 80%; background: rgba(140,130,110,0.65); }
+	.building.b11 { left: 28%; width: 18%; height: 45%; background: rgba(150,140,120,0.55); }
+	.building.b12 { left: 44%; width: 14%; height: 70%; background: rgba(135,128,108,0.6); }
+	.building.b13 { left: 56%; width: 20%; height: 55%; background: rgba(145,135,115,0.6); }
+	.building.b14 { left: 74%; width: 22%; height: 50%; background: rgba(140,130,110,0.6); }
+	/* Tree line in front of buildings */
+	.trees-line {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 42%;
+		background:
+			radial-gradient(ellipse 12px 14px at 10% 60%, #5a9a3a 0%, transparent 70%),
+			radial-gradient(ellipse 14px 16px at 25% 55%, #4a8a2a 0%, transparent 70%),
+			radial-gradient(ellipse 10px 12px at 40% 62%, #5aa03a 0%, transparent 70%),
+			radial-gradient(ellipse 16px 14px at 55% 58%, #4a8828 0%, transparent 70%),
+			radial-gradient(ellipse 12px 15px at 70% 60%, #58983a 0%, transparent 70%),
+			radial-gradient(ellipse 14px 13px at 85% 56%, #4a9030 0%, transparent 70%),
+			linear-gradient(180deg, transparent 40%, #4a8a2a 60%, #3a7a20 100%);
+	}
+
 	.window-divider-v {
 		position: absolute;
 		top: 0; bottom: 0;
-		left: 50%; width: 4px;
+		left: 50%; width: 5px;
 		transform: translateX(-50%);
-		background: #5a4530;
+		background: #6b5530;
 		z-index: 1;
 	}
 	.window-divider-h {
 		position: absolute;
 		left: 0; right: 0;
-		top: 50%; height: 3px;
+		top: 50%; height: 4px;
 		transform: translateY(-50%);
-		background: #5a4530;
+		background: #6b5530;
 		z-index: 1;
 	}
 
-	/* ── Circuit pattern on wall ── */
-	.wall-art {
-		position: absolute;
-		top: 10%;
-		left: 5%;
-		width: 45%;
-		height: 60%;
-		z-index: 1;
-	}
-	.circuit-line {
-		position: absolute;
-		background: rgba(180, 150, 100, 0.12);
-	}
-	.circuit-line.c1 { top: 30%; left: 10%; width: 60%; height: 1px; }
-	.circuit-line.c2 { top: 50%; left: 20%; width: 40%; height: 1px; }
-	.circuit-line.c3 { top: 30%; left: 40%; width: 1px; height: 40%; }
-	.circuit-dot {
-		position: absolute;
-		width: 4px; height: 4px;
-		border-radius: 50%;
-		background: rgba(180, 150, 100, 0.15);
-		border: 1px solid rgba(180, 150, 100, 0.1);
-	}
-	.circuit-dot.d1 { top: 28%; left: 10%; }
-	.circuit-dot.d2 { top: 28%; left: 70%; }
-	.circuit-dot.d3 { top: 48%; left: 20%; }
-	.circuit-dot.d4 { top: 68%; left: 40%; }
-
-	/* ── Bookshelves ── */
+	/* ── Bookshelves (wall-mounted with brackets) ── */
 	.bookshelf {
 		position: absolute;
-		bottom: 50%;
-		height: 30px;
-		z-index: 2;
+		height: 34px;
+		z-index: 3;
 	}
-	.bookshelf.left { left: 6%; width: 18%; }
-	.bookshelf.right { left: 50%; width: 14%; }
+	.bookshelf.left { bottom: 42%; left: 4%; width: 22%; }
+	.bookshelf.right { bottom: 42%; right: 5%; width: 18%; }
 	.shelf-board {
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 4px;
-		background: linear-gradient(180deg, #6b5540 0%, #4a3828 100%);
+		height: 5px;
+		background: linear-gradient(180deg, #8a7050 0%, #6b5540 100%);
 		border-radius: 1px;
-		box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+		box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+		z-index: 1;
 	}
+	.shelf-bracket {
+		position: absolute;
+		bottom: -10px;
+		width: 4px;
+		height: 12px;
+		background: #5a4530;
+		border-radius: 0 0 1px 1px;
+		z-index: 0;
+	}
+	.shelf-bracket.bl { left: 15%; }
+	.shelf-bracket.br { right: 15%; }
 	.book {
 		position: absolute;
-		bottom: 4px;
+		bottom: 5px;
 		border-radius: 1px 1px 0 0;
+		z-index: 2;
 	}
-	/* Book variations */
-	.bookshelf.left .book.b1 { left: 5%; width: 7px; height: 18px; background: #c62828; }
-	.bookshelf.left .book.b2 { left: 18%; width: 9px; height: 20px; background: #1565c0; }
-	.bookshelf.left .book.b3 { left: 34%; width: 6px; height: 16px; background: #2e7d32; }
-	.bookshelf.left .book.b4 { left: 48%; width: 10px; height: 22px; background: #e65100; }
-	.bookshelf.left .book.b5 { left: 68%; width: 8px; height: 17px; background: #6a1b9a; }
-	.bookshelf.right .book.b1 { left: 8%; width: 8px; height: 19px; background: #01579b; }
-	.bookshelf.right .book.b2 { left: 30%; width: 10px; height: 21px; background: #bf360c; }
-	.bookshelf.right .book.b3 { left: 55%; width: 7px; height: 16px; background: #004d40; }
-	.bookshelf.right .book.b4 { left: 75%; width: 9px; height: 20px; background: #4a148c; }
+	/* Left shelf books */
+	.bookshelf.left .book.b1 { left: 4%; width: 8px; height: 22px; background: #c62828; }
+	.bookshelf.left .book.b2 { left: 16%; width: 10px; height: 24px; background: #1565c0; }
+	.bookshelf.left .book.b3 { left: 30%; width: 7px; height: 19px; background: #2e7d32; }
+	.bookshelf.left .book.b4 { left: 42%; width: 11px; height: 26px; background: #e65100; }
+	.bookshelf.left .book.b5 { left: 60%; width: 9px; height: 20px; background: #6a1b9a; }
+	.bookshelf.left .book.b6 { left: 76%; width: 8px; height: 23px; background: #00695c; }
+	/* Right shelf books */
+	.bookshelf.right .book.b1 { left: 6%; width: 9px; height: 22px; background: #ad1457; }
+	.bookshelf.right .book.b2 { left: 24%; width: 11px; height: 25px; background: #0277bd; }
+	.bookshelf.right .book.b3 { left: 44%; width: 8px; height: 19px; background: #ef6c00; }
+	.bookshelf.right .book.b4 { left: 60%; width: 10px; height: 24px; background: #283593; }
+	.bookshelf.right .book.b5 { left: 78%; width: 7px; height: 21px; background: #558b2f; }
 
-	/* ═══ FLOOR ═══ */
+	/* ── Circuit Board Pattern ── */
+	.circuit-panel {
+		position: absolute;
+		bottom: 2%;
+		left: 15%;
+		right: 15%;
+		height: 36%;
+		z-index: 1;
+	}
+	.circuit-line {
+		position: absolute;
+		background: rgba(140, 120, 80, 0.4);
+	}
+	/* Horizontal traces */
+	.circuit-line.ch1 { top: 20%; left: 5%; width: 90%; height: 2px; }
+	.circuit-line.ch2 { top: 40%; left: 10%; width: 80%; height: 2px; }
+	.circuit-line.ch3 { top: 60%; left: 3%; width: 94%; height: 2px; }
+	.circuit-line.ch4 { top: 80%; left: 8%; width: 84%; height: 2px; }
+	/* Vertical traces */
+	.circuit-line.cv1 { top: 10%; left: 15%; width: 2px; height: 80%; }
+	.circuit-line.cv2 { top: 15%; left: 35%; width: 2px; height: 70%; }
+	.circuit-line.cv3 { top: 5%; left: 50%; width: 2px; height: 90%; }
+	.circuit-line.cv4 { top: 12%; left: 68%; width: 2px; height: 75%; }
+	.circuit-line.cv5 { top: 8%; left: 85%; width: 2px; height: 82%; }
+	/* Solder dots at intersections */
+	.circuit-dot {
+		position: absolute;
+		width: 6px; height: 6px;
+		border-radius: 50%;
+		background: rgba(160, 140, 90, 0.55);
+		border: 1px solid rgba(140, 120, 70, 0.4);
+	}
+	.circuit-dot.cd1 { top: 18%; left: 14%; }
+	.circuit-dot.cd2 { top: 38%; left: 34%; }
+	.circuit-dot.cd3 { top: 58%; left: 49%; }
+	.circuit-dot.cd4 { top: 78%; left: 67%; }
+	.circuit-dot.cd5 { top: 18%; left: 49%; }
+	.circuit-dot.cd6 { top: 58%; left: 14%; }
+	.circuit-dot.cd7 { top: 38%; left: 84%; }
+	.circuit-dot.cd8 { top: 78%; left: 34%; }
+	/* IC chips */
+	.circuit-chip {
+		position: absolute;
+		width: 16px;
+		height: 10px;
+		background: rgba(100, 85, 55, 0.5);
+		border: 1px solid rgba(120, 100, 65, 0.45);
+		border-radius: 1px;
+	}
+	.circuit-chip.cp1 { top: 30%; left: 42%; }
+	.circuit-chip.cp2 { top: 65%; left: 72%; }
+
+	/* ═══ FLOOR (warm light wood) ═══ */
 	.floor {
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 48%;
-		background: linear-gradient(180deg, #3a2d1e 0%, #2e2318 30%, #261c12 100%);
+		height: 45%;
+		background: linear-gradient(180deg, #c4a46e 0%, #b89860 8%, #c8a870 30%, #d0b078 60%, #c4a468 100%);
 		z-index: 0;
 	}
-	/* Wood plank lines */
 	.floor-plank {
 		position: absolute;
 		left: 0;
 		right: 0;
-		height: 1px;
-		background: rgba(80, 60, 35, 0.3);
+		height: 2px;
+		background: rgba(160, 130, 80, 0.35);
 	}
-	.floor-plank.p1 { top: 20%; }
-	.floor-plank.p2 { top: 45%; }
-	.floor-plank.p3 { top: 65%; }
-	.floor-plank.p4 { top: 82%; }
+	.floor-plank.p1 { top: 10%; }
+	.floor-plank.p2 { top: 25%; }
+	.floor-plank.p3 { top: 40%; }
+	.floor-plank.p4 { top: 55%; }
+	.floor-plank.p5 { top: 70%; }
+	.floor-plank.p6 { top: 85%; }
 	.floor::before {
 		content: '';
 		position: absolute;
 		inset: 0;
 		background:
-			repeating-linear-gradient(90deg, transparent 0px, transparent 80px, rgba(0,0,0,0.04) 80px, rgba(0,0,0,0.04) 81px);
+			repeating-linear-gradient(90deg, transparent 0px, transparent 55px, rgba(160,130,80,0.15) 55px, rgba(160,130,80,0.15) 56px);
 	}
-	/* Floor shadow from desk area */
+	/* Subtle shadow under desk */
 	.floor::after {
 		content: '';
 		position: absolute;
 		top: 0;
-		left: 15%;
-		right: 15%;
-		height: 30px;
-		background: radial-gradient(ellipse 100% 100%, rgba(0,0,0,0.15) 0%, transparent 70%);
-	}
-
-	/* ═══ SHARED DESK ═══ */
-	.shared-desk {
-		position: absolute;
-		bottom: 32%;
 		left: 10%;
 		right: 10%;
-		height: 14px;
-		z-index: 3;
+		height: 40px;
+		background: radial-gradient(ellipse 100% 100%, rgba(0,0,0,0.12) 0%, transparent 70%);
+	}
+
+	/* ═══ LARGE CURVED DESK ═══ */
+	.shared-desk {
+		position: absolute;
+		bottom: 28%;
+		left: 8%;
+		right: 8%;
+		height: 60px;
+		z-index: 8;
 	}
 	.desk-surface {
 		position: absolute;
 		top: 0;
-		left: 0;
-		right: 0;
-		height: 8px;
-		background: linear-gradient(180deg, #c8a87a 0%, #b89868 50%, #a88858 100%);
-		border-radius: 3px 3px 0 0;
-		border: 1px solid rgba(180, 150, 100, 0.3);
+		left: 2%;
+		right: 2%;
+		height: 10px;
+		background: linear-gradient(180deg, #f0e4cc 0%, #e8d8b8 40%, #ddd0a8 100%);
+		border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+		border: 2px solid rgba(180, 160, 120, 0.4);
 		border-bottom: none;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+		box-shadow: 0 -3px 12px rgba(0,0,0,0.1);
+		z-index: 2;
 	}
-	.desk-front {
+	/* Subtle desk edge highlight */
+	.desk-surface::before {
+		content: '';
 		position: absolute;
-		top: 7px;
+		top: 2px;
+		left: 10%;
+		right: 10%;
+		height: 2px;
+		background: rgba(255,255,255,0.2);
+		border-radius: 50%;
+	}
+	.desk-front-panel {
+		position: absolute;
+		top: 9px;
 		left: 0;
 		right: 0;
-		height: 18px;
-		background: linear-gradient(180deg, #8a7050 0%, #6b5540 100%);
-		border-radius: 0 0 2px 2px;
-		border: 1px solid rgba(100, 80, 50, 0.3);
-		border-top: none;
+		height: 36px;
+		background: linear-gradient(180deg, #a08050 0%, #8a6c42 40%, #7a5e38 100%);
+		border-radius: 0 0 50% 50% / 0 0 30% 30%;
+		border: 2px solid rgba(100, 80, 50, 0.3);
+		border-top: 1px solid #b89060;
+		box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+		z-index: 1;
+		position: relative;
+		top: 9px;
+	}
+	/* Wood grain on front panel */
+	.desk-front-panel::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background:
+			repeating-linear-gradient(0deg, transparent 0px, transparent 4px, rgba(0,0,0,0.04) 4px, rgba(0,0,0,0.04) 5px);
 	}
 	.desk-leg {
 		position: absolute;
-		bottom: -20px;
-		width: 6px;
-		height: 20px;
-		background: linear-gradient(180deg, #6b5540 0%, #4a3828 100%);
-		border-radius: 0 0 2px 2px;
+		bottom: -22px;
+		width: 8px;
+		height: 22px;
+		background: linear-gradient(180deg, #7a5e38 0%, #5a4528 100%);
+		border-radius: 0 0 3px 3px;
+		z-index: 0;
 	}
-	.desk-leg.dl { left: 8%; }
-	.desk-leg.dr { right: 8%; }
+	.desk-leg.dl { left: 12%; }
+	.desk-leg.dr { right: 12%; }
 
-	/* ═══ PLANTS ═══ */
+	/* ── Name pills on desk front ── */
+	.name-pill {
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background: linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
+		color: #fff;
+		font-family: 'Chakra Petch', monospace;
+		font-size: 10px;
+		font-weight: 700;
+		letter-spacing: 0.5px;
+		padding: 2px 10px;
+		border-radius: 10px;
+		white-space: nowrap;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+		z-index: 3;
+		text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+	}
+
+	/* ── Coffee mug ── */
+	.coffee-mug {
+		position: absolute;
+		top: -4px;
+		right: 22%;
+		z-index: 3;
+	}
+	.mug-body {
+		width: 10px;
+		height: 10px;
+		background: linear-gradient(180deg, #e8e0d0 0%, #d0c8b8 100%);
+		border-radius: 1px 1px 3px 3px;
+		border: 1px solid #b0a890;
+	}
+	.mug-handle {
+		position: absolute;
+		top: 2px;
+		right: -5px;
+		width: 5px;
+		height: 6px;
+		border: 2px solid #d0c8b8;
+		border-left: none;
+		border-radius: 0 4px 4px 0;
+	}
+	.mug-steam {
+		position: absolute;
+		width: 2px;
+		background: rgba(255,255,255,0.4);
+		border-radius: 2px;
+		animation: steam 2s ease-in-out infinite;
+	}
+	.mug-steam.s1 { top: -8px; left: 2px; height: 6px; animation-delay: 0s; }
+	.mug-steam.s2 { top: -10px; left: 6px; height: 8px; animation-delay: 0.5s; }
+	@keyframes steam {
+		0% { opacity: 0.2; transform: translateY(0) scaleX(1); }
+		50% { opacity: 0.5; transform: translateY(-4px) scaleX(1.3); }
+		100% { opacity: 0; transform: translateY(-8px) scaleX(0.8); }
+	}
+
+	/* ═══ PLANTS (tall trees) ═══ */
 	.plant {
 		position: absolute;
-		bottom: 30%;
-		z-index: 4;
+		bottom: 22%;
+		z-index: 7;
 	}
-	.plant.left { left: 2%; }
-	.plant.right { right: 2%; }
+	.plant.left { left: 1%; }
+	.plant.right { right: 1%; }
 	.pot {
 		position: absolute;
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 20px;
-		height: 18px;
-		background: linear-gradient(180deg, #a0522d 0%, #8b4513 100%);
-		border-radius: 2px 2px 4px 4px;
-		border: 1px solid #6d3a1e;
+		width: 28px;
+		height: 26px;
+		background: linear-gradient(180deg, #c0683a 0%, #a05228 50%, #8a4420 100%);
+		border-radius: 3px 3px 6px 6px;
+		border: 1px solid #804018;
+		clip-path: polygon(5% 0%, 95% 0%, 85% 100%, 15% 100%);
 	}
 	.pot::after {
 		content: '';
 		position: absolute;
-		top: -3px;
-		left: -2px;
-		right: -2px;
-		height: 4px;
-		background: #8b4513;
-		border-radius: 2px;
+		top: -4px;
+		left: -3px;
+		right: -3px;
+		height: 6px;
+		background: #a05228;
+		border-radius: 3px;
+		border: 1px solid #804018;
 	}
 	.trunk {
 		position: absolute;
-		bottom: 16px;
+		bottom: 22px;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 4px;
-		height: 25px;
-		background: linear-gradient(180deg, #5d4037 0%, #795548 100%);
-		border-radius: 2px;
+		width: 6px;
+		height: 50px;
+		background: linear-gradient(180deg, #6d4c35 0%, #8b6245 50%, #7a5438 100%);
+		border-radius: 3px;
 	}
 	.foliage {
 		position: absolute;
 		border-radius: 50%;
 	}
 	.foliage.f1 {
-		bottom: 35px;
+		bottom: 60px;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 30px;
-		height: 28px;
-		background: radial-gradient(ellipse, #4caf50 20%, #2e7d32 70%, #1b5e20 100%);
+		width: 44px;
+		height: 40px;
+		background: radial-gradient(ellipse, #5cb85c 10%, #3d8b3d 50%, #2d7a2d 90%);
 	}
 	.foliage.f2 {
-		bottom: 48px;
+		bottom: 80px;
 		left: 50%;
 		transform: translateX(-65%);
-		width: 22px;
-		height: 20px;
-		background: radial-gradient(ellipse, #66bb6a 20%, #388e3c 70%);
+		width: 34px;
+		height: 32px;
+		background: radial-gradient(ellipse, #6cc86c 10%, #4a9a4a 60%);
 	}
 	.foliage.f3 {
-		bottom: 45px;
+		bottom: 78px;
 		left: 50%;
-		transform: translateX(-20%);
-		width: 18px;
-		height: 18px;
-		background: radial-gradient(ellipse, #43a047 20%, #2e7d32 70%);
+		transform: translateX(-15%);
+		width: 30px;
+		height: 28px;
+		background: radial-gradient(ellipse, #5ab85a 10%, #3a8a3a 60%);
+	}
+	.foliage.f4 {
+		bottom: 96px;
+		left: 50%;
+		transform: translateX(-45%);
+		width: 26px;
+		height: 24px;
+		background: radial-gradient(ellipse, #68c468 10%, #48a048 60%);
 	}
 
 	/* ═══ SERVER RACKS ═══ */
 	.server-area {
 		position: absolute;
-		bottom: 2%;
-		left: 8%;
-		right: 8%;
-		height: 18%;
+		bottom: 1%;
+		left: 5%;
+		right: 5%;
+		height: 16%;
 		display: flex;
-		gap: 4px;
+		gap: 5px;
 		justify-content: center;
 		z-index: 1;
 	}
 	.server-rack {
-		width: 40px;
+		width: 50px;
 		height: 100%;
-		background: linear-gradient(180deg, #2a2a30 0%, #1e1e24 100%);
-		border: 1px solid #3a3a44;
-		border-radius: 2px;
+		background: linear-gradient(180deg, #3a3a44 0%, #2a2a32 50%, #1e1e26 100%);
+		border: 2px solid #4a4a56;
+		border-radius: 3px;
 		position: relative;
+		box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 	}
 	.rack-unit {
 		position: absolute;
-		left: 3px;
-		right: 3px;
-		height: 20%;
+		left: 4px;
+		right: 4px;
+		height: 18%;
 		background: #18181e;
-		border: 1px solid #333340;
+		border: 1px solid #3a3a48;
 		border-radius: 1px;
 	}
 	.rack-unit.ru1 { top: 8%; }
-	.rack-unit.ru2 { top: 36%; }
-	.rack-unit.ru3 { top: 64%; }
+	.rack-unit.ru2 { top: 34%; }
+	.rack-unit.ru3 { top: 60%; }
 	.rack-led {
 		position: absolute;
-		width: 3px;
-		height: 3px;
+		width: 4px;
+		height: 4px;
 		border-radius: 50%;
-		right: 6px;
+		right: 7px;
 		animation: ledBlink 3s ease-in-out infinite;
 	}
-	.rack-led.l1 { top: 14%; background: #00e676; animation-delay: 0s; }
-	.rack-led.l2 { top: 42%; background: #ffb300; animation-delay: 1s; }
-	.rack-led.l3 { top: 70%; background: #00e5ff; animation-delay: 0.5s; }
+	.rack-led.l1 { top: 13%; background: #00e676; box-shadow: 0 0 4px #00e676; animation-delay: 0s; }
+	.rack-led.l2 { top: 39%; background: #ffb300; box-shadow: 0 0 4px #ffb300; animation-delay: 1s; }
+	.rack-led.l3 { top: 65%; background: #00e5ff; box-shadow: 0 0 4px #00e5ff; animation-delay: 0.5s; }
 	@keyframes ledBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+	/* Colored cables dangling from racks */
+	.cable {
+		position: absolute;
+		bottom: -8px;
+		width: 3px;
+		height: 14px;
+		border-radius: 0 0 3px 3px;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+	}
+	.cable.c-red { background: #e53935; }
+	.cable.c-green { background: #43a047; }
+	.cable.c-blue { background: #1e88e5; }
+	.cable.c-yellow { background: #fdd835; }
 
 	/* ═══ WORKSTATION WRAP ═══ */
 	.workstation-wrap {
 		position: absolute;
-		bottom: 35%;
+		bottom: 37%;
 		width: 120px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		transition: all 0.5s ease;
-		z-index: 5;
-		transform: translateX(-50%);
+		z-index: 6;
+		transform: translateX(-50%) scale(1.25);
+		transform-origin: bottom center;
 	}
+	/* Hide default PixelCharacter labels — names are on desk pills, status below desk */
+	.workstation-wrap :global(.ws-label-top) {
+		display: none !important;
+	}
+	.workstation-wrap :global(.ws-label-bottom) {
+		bottom: -50px;
+		z-index: 20;
+	}
+
 	.workstation-wrap::before {
 		content: '';
 		position: absolute;
@@ -594,36 +951,37 @@
 		transition: opacity 0.5s;
 		z-index: -1;
 	}
-	.workstation-wrap.working::before { opacity: 0.2; }
-	.workstation-wrap.thinking::before { opacity: 0.12; background: #b388ff; }
+	.workstation-wrap.working::before { opacity: 0.25; }
+	.workstation-wrap.thinking::before { opacity: 0.15; background: #b388ff; }
 
-	/* ── Monitor (desktop style) ── */
+	/* ── Monitor (larger desktop style) ── */
 	.monitor {
 		position: absolute;
-		bottom: 28px;
+		bottom: 32px;
 		left: 50%;
 		transform: translateX(-50%);
-		z-index: 6;
+		z-index: 9;
 	}
 	.monitor-screen {
-		width: 34px;
-		height: 24px;
+		width: 40px;
+		height: 28px;
 		background: #0a0f1e;
-		border: 2px solid #333;
-		border-radius: 2px 2px 0 0;
+		border: 3px solid #2a2a32;
+		border-radius: 3px 3px 0 0;
 		overflow: hidden;
 		position: relative;
+		box-shadow: 0 0 8px rgba(0,0,0,0.4);
 	}
 	.monitor-stand {
-		width: 8px;
-		height: 6px;
-		background: #444;
+		width: 10px;
+		height: 7px;
+		background: #3a3a44;
 		margin: 0 auto;
 	}
 	.monitor-base {
-		width: 18px;
+		width: 22px;
 		height: 3px;
-		background: #555;
+		background: #4a4a56;
 		border-radius: 1px;
 		margin: 0 auto;
 	}
@@ -647,7 +1005,7 @@
 		display: flex; flex-direction: column;
 		gap: 2px; padding: 1px;
 	}
-	.screen-lines :global(.screen-line) { height: 1.5px; border-radius: 1px; opacity: 0.3; }
+	.screen-lines :global(.screen-line) { height: 2px; border-radius: 1px; opacity: 0.3; }
 	.workstation-wrap.working .screen-lines :global(.screen-line) { animation: typeLine 1s ease-in-out infinite; opacity: 0.7; }
 	.workstation-wrap.thinking .screen-lines :global(.screen-line) { animation: typeLine 3s ease-in-out infinite; opacity: 0.4; }
 	@keyframes typeLine { 0% { width: 0; } 30% { width: 100%; } 60% { width: 40%; } 100% { width: 80%; } }
@@ -686,7 +1044,7 @@
 	/* Work pulse */
 	.work-pulse {
 		position: absolute;
-		bottom: 38px;
+		bottom: 42px;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 50px; height: 50px;
