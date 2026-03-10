@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
-	import { TEAMS } from '$lib/stores';
+	import { TEAMS, milesStatus, pmoStatus } from '$lib/stores';
+	import type { AgentState, TeamStatus } from '$lib/types';
+	import Workstation from './Workstation.svelte';
 
 	interface Props {
 		teamKey: string;
@@ -10,56 +12,68 @@
 
 	const team = $derived(TEAMS.find((t) => t.key === teamKey));
 	const agentCount = $derived(team?.agents.length ?? 0);
+	const teamStatus: TeamStatus = $derived(teamKey === 'miles' ? $milesStatus : $pmoStatus);
+
+	// Calculate scene width based on agent count
+	const sceneWidth = $derived(agentCount * 3.5 + 2);
+
+	function getAgentState(agentId: string): AgentState {
+		const status = teamStatus[agentId];
+		return (status?.state as AgentState) ?? 'idle';
+	}
+
+	function getAgentActivity(agentId: string): string {
+		return teamStatus[agentId]?.activity ?? '';
+	}
 </script>
 
-<!-- Orthographic camera (2D look) -->
+<!-- Orthographic camera for 2D-like view -->
 <T.OrthographicCamera
 	makeDefault
-	position={[0, 5, 10]}
-	zoom={40}
+	position={[0, 8, 12]}
+	zoom={55}
 	near={0.1}
 	far={100}
->
-	<T.DirectionalLight position={[5, 10, 5]} intensity={0.6} />
-</T.OrthographicCamera>
+	oncreate={(ref) => ref.lookAt(0, 0.8, 0)}
+/>
 
-<!-- Ambient light -->
-<T.AmbientLight intensity={0.4} />
+<!-- Lighting -->
+<T.AmbientLight intensity={0.35} color="#b0c4de" />
+<T.DirectionalLight position={[5, 12, 8]} intensity={0.5} color="#e0e8f0" castShadow />
+<T.DirectionalLight position={[-3, 6, -2]} intensity={0.15} color="#6080a0" />
+<!-- Subtle rim light from behind -->
+<T.DirectionalLight position={[0, 4, -8]} intensity={0.1} color="#4060a0" />
 
-<!-- Floor plane -->
-<T.Mesh rotation.x={-Math.PI / 2} position.y={0}>
-	<T.PlaneGeometry args={[agentCount * 4 + 4, 6]} />
-	<T.MeshStandardMaterial color="#1a1f29" />
+<!-- ═══ FLOOR ═══ -->
+<T.Mesh rotation.x={-Math.PI / 2} position.y={0} receiveShadow>
+	<T.PlaneGeometry args={[sceneWidth + 4, 8]} />
+	<T.MeshStandardMaterial color="#1a1f29" roughness={0.9} />
 </T.Mesh>
 
-<!-- Placeholder desk per agent -->
+<!-- Floor grid lines (subtle) -->
+{#each Array.from({ length: Math.ceil(sceneWidth / 2) + 3 }) as _, i}
+	{@const x = (i - Math.ceil(sceneWidth / 4) - 1) * 2}
+	<T.Mesh rotation.x={-Math.PI / 2} position={[x, 0.001, 0]}>
+		<T.PlaneGeometry args={[0.01, 8]} />
+		<T.MeshBasicMaterial color="#252b35" transparent opacity={0.5} />
+	</T.Mesh>
+{/each}
+
+<!-- Back wall -->
+<T.Mesh position={[0, 1.5, -2.5]}>
+	<T.PlaneGeometry args={[sceneWidth + 4, 3]} />
+	<T.MeshStandardMaterial color="#13171e" roughness={0.95} />
+</T.Mesh>
+
+<!-- ═══ WORKSTATIONS ═══ -->
 {#if team}
 	{#each team.agents as agent, idx}
-		{@const xPos = (idx - (agentCount - 1) / 2) * 3.5}
-		<!-- Desk -->
-		<T.Mesh position={[xPos, 0.6, 0]}>
-			<T.BoxGeometry args={[2, 0.1, 1]} />
-			<T.MeshStandardMaterial color="#2d3a5c" />
-		</T.Mesh>
-		<!-- Desk legs -->
-		<T.Mesh position={[xPos - 0.8, 0.3, 0]}>
-			<T.BoxGeometry args={[0.08, 0.6, 0.08]} />
-			<T.MeshStandardMaterial color="#21262d" />
-		</T.Mesh>
-		<T.Mesh position={[xPos + 0.8, 0.3, 0]}>
-			<T.BoxGeometry args={[0.08, 0.6, 0.08]} />
-			<T.MeshStandardMaterial color="#21262d" />
-		</T.Mesh>
-		<!-- Agent body placeholder (capsule) -->
-		<T.Mesh position={[xPos, 1.2, 0.6]}>
-			<T.CapsuleGeometry args={[0.2, 0.5, 4, 8]} />
-			<T.MeshStandardMaterial color={agent.jacket} />
-		</T.Mesh>
-		<!-- Head -->
-		<T.Mesh position={[xPos, 1.8, 0.6]}>
-			<T.SphereGeometry args={[0.22, 8, 8]} />
-			<T.MeshStandardMaterial color={agent.skinColor} />
-		</T.Mesh>
-		<!-- Name label (will be HTML overlay later) -->
+		{@const xPos = (idx - (agentCount - 1) / 2) * 3.2}
+		<Workstation
+			{agent}
+			position={[xPos, 0, 0]}
+			state={getAgentState(agent.id)}
+			activity={getAgentActivity(agent.id)}
+		/>
 	{/each}
 {/if}
