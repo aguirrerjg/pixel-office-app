@@ -1322,8 +1322,8 @@
 		left: 0%;
 		width: 18px;
 		height: 22px;
-		background: linear-gradient(180deg, #f8f4ec 0%, #ede6d6 100%);
-		border: 1px solid #c8c0b0;
+		background: linear-gradient(180deg, #b8b0a0 0%, #9a9080 100%);
+		border: 1px solid #7a7060;
 		border-radius: 1px;
 		opacity: 0;
 		animation: flyRight 1.8s ease-in-out infinite;
@@ -1359,7 +1359,7 @@
 		right: 0;
 		width: 6px;
 		height: 6px;
-		background: #ddd6c6;
+		background: #8a8070;
 		clip-path: polygon(100% 0, 0 100%, 100% 100%);
 	}
 
