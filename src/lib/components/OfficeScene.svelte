@@ -111,50 +111,92 @@
 		<!-- BACK WALL -->
 		<div class="back-wall">
 			<div class="wall-trim-top"></div>
-			<!-- World Map (left side) -->
-			<div class="world-map">
-				<div class="map-frame">
-					<div class="map-canvas">
-						<!-- Continents as dot clusters -->
-						<div class="continent na"></div>
-						<div class="continent sa"></div>
-						<div class="continent eu"></div>
-						<div class="continent af"></div>
-						<div class="continent as"></div>
-						<div class="continent oc"></div>
+			<!-- Digital Whiteboard (left side) -->
+			<div class="whiteboard">
+				<div class="wb-frame">
+					<div class="wb-surface">
+						<!-- Sticky notes -->
+						<div class="sticky s1">MVP</div>
+						<div class="sticky s2">API</div>
+						<div class="sticky s3">Deploy</div>
+						<div class="sticky s4">Tests</div>
+						<!-- Drawn lines (marker strokes) -->
+						<div class="wb-line wl1"></div>
+						<div class="wb-line wl2"></div>
+						<div class="wb-line wl3"></div>
+						<div class="wb-line wl4"></div>
+						<!-- Flow arrows -->
+						<div class="wb-arrow wa1"></div>
+						<div class="wb-arrow wa2"></div>
+						<!-- Diagram boxes -->
+						<div class="wb-box wb1"></div>
+						<div class="wb-box wb2"></div>
+						<div class="wb-box wb3"></div>
+						<!-- Dots/bullets -->
+						<div class="wb-dot wd1"></div>
+						<div class="wb-dot wd2"></div>
+						<div class="wb-dot wd3"></div>
+					</div>
+					<div class="wb-tray">
+						<div class="wb-marker m-red"></div>
+						<div class="wb-marker m-blue"></div>
+						<div class="wb-marker m-green"></div>
+						<div class="wb-marker m-black"></div>
+						<div class="wb-eraser"></div>
 					</div>
 				</div>
 			</div>
 
-			<!-- Window (right side) with city skyline -->
+			<!-- Window (right side) — different view per team -->
 			<div class="window">
 				<div class="window-frame">
 					<div class="window-pane left">
-						<div class="window-sky">
-							<div class="skyline">
-								<div class="building b1"></div>
-								<div class="building b2"></div>
-								<div class="building b3"></div>
-								<div class="building b4"></div>
-								<div class="building b5"></div>
-								<div class="building b6"></div>
-								<div class="building b7"></div>
-								<div class="building b8"></div>
-							</div>
-							<div class="trees-line"></div>
+						<div class="window-sky {teamKey}">
+							{#if teamKey === 'miles'}
+								<!-- City skyline -->
+								<div class="skyline">
+									<div class="building b1"></div>
+									<div class="building b2"></div>
+									<div class="building b3"></div>
+									<div class="building b4"></div>
+									<div class="building b5"></div>
+									<div class="building b6"></div>
+									<div class="building b7"></div>
+									<div class="building b8"></div>
+								</div>
+								<div class="trees-line"></div>
+							{:else}
+								<!-- Mountain landscape -->
+								<div class="mountains">
+									<div class="mountain m1"></div>
+									<div class="mountain m2"></div>
+									<div class="mountain m3"></div>
+								</div>
+								<div class="lake"></div>
+								<div class="pine-line"></div>
+							{/if}
 						</div>
 					</div>
 					<div class="window-pane right">
-						<div class="window-sky">
-							<div class="skyline">
-								<div class="building b9"></div>
-								<div class="building b10"></div>
-								<div class="building b11"></div>
-								<div class="building b12"></div>
-								<div class="building b13"></div>
-								<div class="building b14"></div>
-							</div>
-							<div class="trees-line"></div>
+						<div class="window-sky {teamKey}">
+							{#if teamKey === 'miles'}
+								<div class="skyline">
+									<div class="building b9"></div>
+									<div class="building b10"></div>
+									<div class="building b11"></div>
+									<div class="building b12"></div>
+									<div class="building b13"></div>
+									<div class="building b14"></div>
+								</div>
+								<div class="trees-line"></div>
+							{:else}
+								<div class="mountains">
+									<div class="mountain m4"></div>
+									<div class="mountain m5"></div>
+								</div>
+								<div class="lake"></div>
+								<div class="pine-line"></div>
+							{/if}
 						</div>
 					</div>
 					<div class="window-divider-v"></div>
@@ -162,29 +204,7 @@
 				</div>
 			</div>
 
-			<!-- Bookshelf left (wall-mounted with brackets) -->
-			<div class="bookshelf left">
-				<div class="shelf-bracket bl"></div>
-				<div class="shelf-bracket br"></div>
-				<div class="shelf-board"></div>
-				<div class="book b1"></div>
-				<div class="book b2"></div>
-				<div class="book b3"></div>
-				<div class="book b4"></div>
-				<div class="book b5"></div>
-				<div class="book b6"></div>
-			</div>
-			<!-- Bookshelf right -->
-			<div class="bookshelf right">
-				<div class="shelf-bracket bl"></div>
-				<div class="shelf-bracket br"></div>
-				<div class="shelf-board"></div>
-				<div class="book b1"></div>
-				<div class="book b2"></div>
-				<div class="book b3"></div>
-				<div class="book b4"></div>
-				<div class="book b5"></div>
-			</div>
+			<!-- (bookshelves removed — wall space used by whiteboard + window) -->
 
 			<!-- Circuit board pattern (lower wall between bookshelves and desk) -->
 			<div class="circuit-panel">
@@ -419,54 +439,137 @@
 		z-index: 4;
 	}
 
-	/* ── World Map ── */
-	.world-map {
+	/* ── Digital Whiteboard ── */
+	.whiteboard {
 		position: absolute;
-		top: 4%;
-		left: 4%;
-		width: 38%;
-		height: 65%;
+		top: 3%;
+		left: 3%;
+		width: 44%;
+		height: 80%;
 		z-index: 2;
 	}
-	.map-frame {
+	.wb-frame {
 		width: 100%;
 		height: 100%;
-		background: #d4bf94;
-		border: 4px solid #8a7350;
-		border-radius: 2px;
+		background: #e8e8e8;
+		border: 4px solid #888;
+		border-radius: 3px;
 		position: relative;
-		box-shadow: 2px 3px 8px rgba(0,0,0,0.25);
+		box-shadow: 2px 3px 10px rgba(0,0,0,0.3);
 		overflow: hidden;
 	}
-	.map-canvas {
+	.wb-surface {
 		position: absolute;
-		inset: 4px;
-		background: #c8b080;
+		inset: 0;
+		bottom: 14px;
+		background: linear-gradient(180deg, #f8f8fa 0%, #f0f0f4 100%);
+		/* Subtle grid */
 		background-image:
-			radial-gradient(circle 1px, #a08858 1px, transparent 1px);
-		background-size: 6px 6px;
+			linear-gradient(rgba(180,190,210,0.15) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(180,190,210,0.15) 1px, transparent 1px);
+		background-size: 16px 16px;
 	}
-	/* Continents as darker dot clusters */
-	.continent {
+	/* Sticky notes */
+	.sticky {
 		position: absolute;
-		background-image:
-			radial-gradient(circle 1.5px, #8a7040 1px, transparent 1.5px);
-		background-size: 4px 4px;
+		width: 32px;
+		height: 28px;
+		font-family: 'Chakra Petch', monospace;
+		font-size: 6px;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 1px;
+		box-shadow: 1px 2px 3px rgba(0,0,0,0.15);
+		z-index: 2;
 	}
-	.continent.na { top: 15%; left: 10%; width: 25%; height: 28%; border-radius: 30% 40% 50% 20%; }
-	.continent.sa { top: 48%; left: 18%; width: 14%; height: 30%; border-radius: 40% 30% 50% 40%; }
-	.continent.eu { top: 12%; left: 42%; width: 16%; height: 20%; border-radius: 40% 50% 30% 30%; }
-	.continent.af { top: 30%; left: 42%; width: 16%; height: 35%; border-radius: 30% 40% 45% 35%; }
-	.continent.as { top: 10%; left: 55%; width: 30%; height: 38%; border-radius: 40% 30% 45% 25%; }
-	.continent.oc { top: 55%; left: 72%; width: 18%; height: 18%; border-radius: 40% 50% 30% 40%; }
+	.sticky.s1 { top: 8%; left: 6%; background: #fff176; color: #5d4037; transform: rotate(-3deg); }
+	.sticky.s2 { top: 6%; left: 28%; background: #81d4fa; color: #1a237e; transform: rotate(2deg); }
+	.sticky.s3 { top: 10%; right: 28%; background: #a5d6a7; color: #1b5e20; transform: rotate(-1deg); }
+	.sticky.s4 { top: 7%; right: 8%; background: #ffab91; color: #bf360c; transform: rotate(3deg); }
+	/* Marker strokes */
+	.wb-line {
+		position: absolute;
+		border-radius: 2px;
+		z-index: 1;
+	}
+	.wb-line.wl1 { top: 38%; left: 10%; width: 35%; height: 2px; background: #e53935; transform: rotate(-2deg); }
+	.wb-line.wl2 { top: 50%; left: 8%; width: 40%; height: 2px; background: #1e88e5; transform: rotate(1deg); }
+	.wb-line.wl3 { top: 62%; left: 12%; width: 30%; height: 2px; background: #43a047; }
+	.wb-line.wl4 { top: 42%; left: 55%; width: 25%; height: 2px; background: #e53935; transform: rotate(90deg); transform-origin: left; }
+	/* Flow arrows */
+	.wb-arrow {
+		position: absolute;
+		width: 0; height: 0;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-bottom: 8px solid #1e88e5;
+		z-index: 1;
+	}
+	.wb-arrow.wa1 { top: 34%; left: 48%; transform: rotate(-90deg); }
+	.wb-arrow.wa2 { top: 56%; left: 48%; transform: rotate(-90deg); }
+	/* Diagram boxes */
+	.wb-box {
+		position: absolute;
+		border: 2px solid;
+		border-radius: 3px;
+		z-index: 1;
+	}
+	.wb-box.wb1 { top: 32%; right: 12%; width: 28%; height: 14%; border-color: #1e88e5; }
+	.wb-box.wb2 { top: 50%; right: 18%; width: 22%; height: 12%; border-color: #43a047; }
+	.wb-box.wb3 { top: 68%; right: 10%; width: 30%; height: 14%; border-color: #e53935; }
+	/* Bullet dots */
+	.wb-dot {
+		position: absolute;
+		width: 4px; height: 4px;
+		border-radius: 50%;
+		background: #333;
+		z-index: 1;
+	}
+	.wb-dot.wd1 { top: 39%; left: 8%; }
+	.wb-dot.wd2 { top: 51%; left: 6%; }
+	.wb-dot.wd3 { top: 63%; left: 10%; }
+	/* Marker tray at bottom */
+	.wb-tray {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 14px;
+		background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
+		border-top: 1px solid #888;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		padding: 0 10px;
+	}
+	.wb-marker {
+		width: 18px;
+		height: 5px;
+		border-radius: 2px;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	}
+	.wb-marker.m-red { background: #e53935; }
+	.wb-marker.m-blue { background: #1e88e5; }
+	.wb-marker.m-green { background: #43a047; }
+	.wb-marker.m-black { background: #333; }
+	.wb-eraser {
+		width: 20px;
+		height: 8px;
+		background: #f5f5f5;
+		border: 1px solid #bbb;
+		border-radius: 2px;
+	}
 
-	/* ── Window with City Skyline ── */
+	/* ── Window ── */
 	.window {
 		position: absolute;
-		top: 2%;
-		right: 5%;
-		width: 40%;
-		height: 72%;
+		top: 3%;
+		right: 3%;
+		width: 44%;
+		height: 80%;
 		z-index: 2;
 	}
 	.window-frame {
@@ -499,6 +602,18 @@
 			#5a9a48 100%
 		);
 		position: relative;
+	}
+	/* Miles: warm sunset city sky */
+	.window-sky.miles {
+		background: linear-gradient(180deg,
+			#f0a050 0%,
+			#e8c070 20%,
+			#d0d8a0 40%,
+			#a8c8a0 55%,
+			#80b868 70%,
+			#60a048 85%,
+			#4a8a38 100%
+		);
 	}
 	/* Building skyline silhouettes */
 	.skyline {
@@ -553,6 +668,129 @@
 			radial-gradient(ellipse 12px 15px at 70% 60%, #58983a 0%, transparent 70%),
 			radial-gradient(ellipse 14px 13px at 85% 56%, #4a9030 0%, transparent 70%),
 			linear-gradient(180deg, transparent 40%, #4a8a2a 60%, #3a7a20 100%);
+	}
+
+	/* ── PMO: Mountain landscape ── */
+	.window-sky.pmo {
+		background: linear-gradient(180deg,
+			#6ba3d6 0%,
+			#8cc4e8 30%,
+			#b0daf0 50%,
+			#d4eef8 60%,
+			#7aaa5a 72%,
+			#5a9040 85%,
+			#4a8030 100%
+		);
+	}
+	.mountains {
+		position: absolute;
+		bottom: 30%;
+		left: 0;
+		right: 0;
+		height: 50%;
+	}
+	.mountain {
+		position: absolute;
+		bottom: 0;
+		width: 0; height: 0;
+		border-style: solid;
+	}
+	.mountain.m1 {
+		left: 5%;
+		border-width: 0 30px 50px 35px;
+		border-color: transparent transparent #7a8a70 transparent;
+	}
+	.mountain.m1::after {
+		content: '';
+		position: absolute;
+		top: -2px; left: -8px;
+		border-width: 0 10px 14px 12px;
+		border-style: solid;
+		border-color: transparent transparent #e8e8f0 transparent;
+	}
+	.mountain.m2 {
+		left: 25%;
+		border-width: 0 40px 70px 45px;
+		border-color: transparent transparent #6a7a60 transparent;
+	}
+	.mountain.m2::after {
+		content: '';
+		position: absolute;
+		top: -2px; left: -12px;
+		border-width: 0 14px 18px 16px;
+		border-style: solid;
+		border-color: transparent transparent #dde0e8 transparent;
+	}
+	.mountain.m3 {
+		right: 5%;
+		border-width: 0 35px 55px 30px;
+		border-color: transparent transparent #8a9a78 transparent;
+	}
+	.mountain.m3::after {
+		content: '';
+		position: absolute;
+		top: -2px; left: -10px;
+		border-width: 0 12px 15px 10px;
+		border-style: solid;
+		border-color: transparent transparent #e0e4ec transparent;
+	}
+	.mountain.m4 {
+		left: 10%;
+		border-width: 0 35px 60px 40px;
+		border-color: transparent transparent #6a7860 transparent;
+	}
+	.mountain.m4::after {
+		content: '';
+		position: absolute;
+		top: -2px; left: -10px;
+		border-width: 0 12px 16px 14px;
+		border-style: solid;
+		border-color: transparent transparent #dde0e8 transparent;
+	}
+	.mountain.m5 {
+		right: 10%;
+		border-width: 0 30px 48px 35px;
+		border-color: transparent transparent #7a8870 transparent;
+	}
+	.mountain.m5::after {
+		content: '';
+		position: absolute;
+		top: -2px; left: -8px;
+		border-width: 0 10px 13px 11px;
+		border-style: solid;
+		border-color: transparent transparent #e2e6ee transparent;
+	}
+	.lake {
+		position: absolute;
+		bottom: 14%;
+		left: 10%;
+		right: 10%;
+		height: 18%;
+		background: linear-gradient(180deg,
+			#6aaccf 0%,
+			#5a9abf 40%,
+			#4a8aaf 100%
+		);
+		border-radius: 50% 50% 40% 40%;
+		opacity: 0.7;
+	}
+	.pine-line {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 35%;
+		background:
+			/* Pine tree silhouettes using triangles */
+			conic-gradient(from 210deg at 8% 65%, #2d5a20 0deg, transparent 40deg),
+			conic-gradient(from 210deg at 18% 60%, #3a6a2a 0deg, transparent 35deg),
+			conic-gradient(from 210deg at 30% 68%, #2a5518 0deg, transparent 38deg),
+			conic-gradient(from 210deg at 42% 62%, #356528 0deg, transparent 36deg),
+			conic-gradient(from 210deg at 55% 66%, #2d5a20 0deg, transparent 40deg),
+			conic-gradient(from 210deg at 68% 60%, #3a6a2a 0deg, transparent 34deg),
+			conic-gradient(from 210deg at 80% 64%, #2a5518 0deg, transparent 38deg),
+			conic-gradient(from 210deg at 92% 62%, #356528 0deg, transparent 36deg),
+			linear-gradient(180deg, transparent 50%, #3a6a2a 70%, #2a5518 100%);
 	}
 
 	.window-divider-v {
