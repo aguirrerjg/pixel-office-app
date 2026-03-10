@@ -115,7 +115,7 @@
 	/* ── Character container (behind desk) ── */
 	.char-wrap {
 		position: absolute;
-		bottom: 14px;
+		bottom: 2px;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 60px;

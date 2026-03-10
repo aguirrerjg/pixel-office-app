@@ -931,7 +931,7 @@
 	/* ═══ WORKSTATION WRAP ═══ */
 	.workstation-wrap {
 		position: absolute;
-		bottom: 40%;
+		bottom: 34%;
 		width: 120px;
 		display: flex;
 		flex-direction: column;
@@ -946,7 +946,7 @@
 		display: none !important;
 	}
 	.workstation-wrap :global(.ws-label-bottom) {
-		bottom: -50px;
+		bottom: -36px;
 		z-index: 20;
 	}
 
@@ -971,7 +971,7 @@
 	/* ── Monitor (larger desktop style) ── */
 	.monitor {
 		position: absolute;
-		bottom: 16px;
+		bottom: 4px;
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 9;
