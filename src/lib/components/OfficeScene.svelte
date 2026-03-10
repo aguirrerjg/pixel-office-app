@@ -25,9 +25,9 @@
 	);
 	// Tighter spread for fewer agents
 	const spreadPct = $derived(
-		agentCount <= 3 ? { start: 20, range: 60 } :
-		agentCount <= 4 ? { start: 14, range: 72 } :
-		{ start: 10, range: 80 }
+		agentCount <= 3 ? { start: 22, range: 56 } :
+		agentCount <= 4 ? { start: 16, range: 68 } :
+		{ start: 12, range: 76 }
 	);
 
 	function getAgentState(agentId: string): AgentState {
@@ -321,7 +321,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 55%;
+		height: 64%;
 		background: linear-gradient(180deg, #c4a878 0%, #b89a6a 50%, #a88d5c 100%);
 		border-bottom: 4px solid #8a7550;
 		z-index: 0;
@@ -527,8 +527,8 @@
 		height: 34px;
 		z-index: 3;
 	}
-	.bookshelf.left { bottom: 42%; left: 4%; width: 22%; }
-	.bookshelf.right { bottom: 42%; right: 5%; width: 18%; }
+	.bookshelf.left { bottom: 32%; left: 4%; width: 22%; }
+	.bookshelf.right { bottom: 32%; right: 5%; width: 18%; }
 	.shelf-board {
 		position: absolute;
 		bottom: 0;
@@ -575,9 +575,9 @@
 	.circuit-panel {
 		position: absolute;
 		bottom: 2%;
-		left: 15%;
-		right: 15%;
-		height: 36%;
+		left: 10%;
+		right: 10%;
+		height: 45%;
 		z-index: 1;
 	}
 	.circuit-line {
@@ -629,7 +629,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 45%;
+		height: 36%;
 		background: linear-gradient(180deg, #c4a46e 0%, #b89860 8%, #c8a870 30%, #d0b078 60%, #c4a468 100%);
 		z-index: 0;
 	}
@@ -667,7 +667,7 @@
 	/* ═══ LARGE CURVED DESK ═══ */
 	.shared-desk {
 		position: absolute;
-		bottom: 26%;
+		bottom: 31%;
 		left: 6%;
 		right: 6%;
 		height: 60px;
@@ -794,7 +794,7 @@
 	/* ═══ PLANTS (tall trees) ═══ */
 	.plant {
 		position: absolute;
-		bottom: 22%;
+		bottom: 28%;
 		z-index: 7;
 	}
 	.plant.left { left: 1%; }
@@ -931,7 +931,7 @@
 	/* ═══ WORKSTATION WRAP ═══ */
 	.workstation-wrap {
 		position: absolute;
-		bottom: 33%;
+		bottom: 38%;
 		width: 120px;
 		display: flex;
 		flex-direction: column;
