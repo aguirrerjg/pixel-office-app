@@ -395,18 +395,20 @@
 	}
 
 	/* ── Accessories ── */
-	.acc-glasses .char-head::after {
+	/* Glasses: two lenses + bridge */
+	.acc-glasses .char-eyes::after {
 		content: '';
 		position: absolute;
-		top: 11px;
+		top: -1px;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 22px;
+		width: 20px;
 		height: 8px;
-		border: 1.5px solid rgba(200, 220, 255, 0.8);
-		border-radius: 3px;
-		background: rgba(180, 210, 255, 0.15);
-		z-index: 7;
+		border: 2px solid #a0b0c8;
+		border-radius: 4px;
+		background: rgba(160, 200, 255, 0.12);
+		z-index: 9;
+		box-shadow: 0 0 2px rgba(160, 200, 255, 0.3);
 	}
 	.acc-headphones .char-head::after {
 		content: '';
