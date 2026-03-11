@@ -54,7 +54,7 @@
 		return map;
 	});
 
-	// Detect active delegations by parsing "Esperando a {label}" activity
+	// Detect active delegations by parsing "Esperando a {label1}, {label2}" activity
 	const delegations = $derived.by(() => {
 		const result: { from: string; to: string; fromPct: number; toPct: number; color: string }[] = [];
 		const map = DELEGATION_MAP[teamKey];
@@ -62,18 +62,29 @@
 
 		for (const [agentId, status] of Object.entries(teamStatus)) {
 			const activity = status?.activity || '';
-			const match = activity.match(/^Esperando a (\w+)/);
+			const match = activity.match(/^Esperando a (.+)$/);
 			if (match) {
-				const targetId = map[match[1]];
-				if (targetId && agentPositions[agentId] !== undefined && agentPositions[targetId] !== undefined) {
-					const targetAgent = team.agents.find(a => a.id === targetId);
-					result.push({
-						from: agentId,
-						to: targetId,
-						fromPct: agentPositions[agentId],
-						toPct: agentPositions[targetId],
-						color: targetAgent?.color ?? teamColor,
-					});
+				// Support comma-separated labels: "Esperando a research, community"
+				const labels = match[1].split(/,\s*/);
+				for (const label of labels) {
+					const targetId = map[label.trim()];
+					if (targetId && agentPositions[agentId] !== undefined && agentPositions[targetId] !== undefined) {
+						const targetAgent = team.agents.find(a => a.id === targetId);
+						let fromPct = agentPositions[agentId];
+						let toPct = agentPositions[targetId];
+						// If same X position (vertical delegation), offset to create visible arc
+						if (Math.abs(fromPct - toPct) < 5) {
+							fromPct -= 6;
+							toPct += 6;
+						}
+						result.push({
+							from: agentId,
+							to: targetId,
+							fromPct,
+							toPct,
+							color: targetAgent?.color ?? teamColor,
+						});
+					}
 				}
 			}
 		}
