@@ -12,6 +12,16 @@
 
 	let { teamKey, teamName, teamColor, platform }: Props = $props();
 
+	let wsAreaEl: HTMLDivElement | undefined = $state();
+	let wsHeight = $state(600);
+
+	$effect(() => {
+		if (!wsAreaEl) return;
+		const ro = new ResizeObserver(([e]) => { wsHeight = e.contentRect.height; });
+		ro.observe(wsAreaEl);
+		return () => ro.disconnect();
+	});
+
 	const team = $derived(TEAMS.find((t) => t.key === teamKey));
 	const teamStatus: TeamStatus = $derived(teamKey === 'miles' ? $milesStatus : $pmoStatus);
 
@@ -118,7 +128,7 @@
 			</div>
 		</div>
 	</header>
-	<div class="ws-area">
+	<div class="ws-area" bind:this={wsAreaEl}>
 		<!-- BACK WALL -->
 		<div class="back-wall">
 			<div class="wall-trim-top"></div>
@@ -337,11 +347,13 @@
 			{@const toRow = agentRowMap[deleg.to] ?? 0}
 			{@const fromTop = getRowStyle(fromRow, rows.length).paperTop}
 			{@const toTop = getRowStyle(toRow, rows.length).paperTop}
-			{@const dropPx = (toTop - fromTop) * 3}
+			{@const crossRow = toRow !== fromRow}
+			{@const spanHeight = crossRow ? (toTop - fromTop) : 0}
 			<div
 				class="paper-toss"
 				class:going-left={!goingRight}
-				style="left:{minPct}%;width:{Math.max(maxPct - minPct, 12)}%;top:{fromTop}%;--drop:{dropPx}px"
+				class:cross-row={crossRow}
+				style="left:{minPct}%;width:{Math.max(maxPct - minPct, 12)}%;top:{fromTop}%;{crossRow ? `height:calc(${spanHeight}% + 60px)` : ''}"
 			>
 				<div class="paper p1" style="--paper-accent:{deleg.color}"><div class="paper-fold"></div></div>
 				<div class="paper p2" style="--paper-accent:{deleg.color}"><div class="paper-fold"></div></div>
@@ -1325,7 +1337,7 @@
 	/* ═══ PAPER TOSS (delegation animation) ═══ */
 	.paper-toss {
 		position: absolute;
-		height: 160px;
+		height: 60px;
 		pointer-events: none;
 		z-index: 50;
 	}
@@ -1344,6 +1356,14 @@
 		box-shadow: 2px 3px 8px rgba(0,0,0,0.35);
 	}
 	.going-left .paper { animation-name: flyLeft; }
+	.cross-row .paper {
+		bottom: auto;
+		top: 0;
+		animation-name: flyCrossRight;
+	}
+	.cross-row.going-left .paper {
+		animation-name: flyCrossLeft;
+	}
 	.paper.p2 { animation-delay: 0.5s; }
 	.paper.p3 { animation-delay: 1.0s; }
 
@@ -1376,44 +1396,36 @@
 		clip-path: polygon(100% 0, 0 100%, 100% 100%);
 	}
 
-	/* Flying right (from < to) — uses --drop for cross-row vertical movement */
+	/* Same-row: horizontal arc */
 	@keyframes flyRight {
-		0% {
-			left: 0%;
-			transform: translateY(0) rotate(-10deg) scale(0.8);
-			opacity: 0;
-		}
+		0% { left: 0%; transform: translateY(0) rotate(-10deg) scale(0.8); opacity: 0; }
 		8% { opacity: 1; }
-		50% {
-			left: 50%;
-			transform: translateY(calc(-80px + var(--drop, 0px) * 0.5)) rotate(180deg) scale(1.1);
-			opacity: 1;
-		}
+		50% { left: 50%; transform: translateY(-50px) rotate(180deg) scale(1.1); opacity: 1; }
 		92% { opacity: 0.7; }
-		100% {
-			left: 100%;
-			transform: translateY(var(--drop, 0px)) rotate(360deg) scale(0.8);
-			opacity: 0;
-		}
+		100% { left: 100%; transform: translateY(0) rotate(360deg) scale(0.8); opacity: 0; }
 	}
-	/* Flying left (from > to) */
 	@keyframes flyLeft {
-		0% {
-			left: 100%;
-			transform: translateY(0) rotate(10deg) scale(0.8);
-			opacity: 0;
-		}
+		0% { left: 100%; transform: translateY(0) rotate(10deg) scale(0.8); opacity: 0; }
 		8% { opacity: 1; }
-		50% {
-			left: 50%;
-			transform: translateY(calc(-80px + var(--drop, 0px) * 0.5)) rotate(-180deg) scale(1.1);
-			opacity: 1;
-		}
+		50% { left: 50%; transform: translateY(-50px) rotate(-180deg) scale(1.1); opacity: 1; }
 		92% { opacity: 0.7; }
-		100% {
-			left: 0%;
-			transform: translateY(var(--drop, 0px)) rotate(-360deg) scale(0.8);
-			opacity: 0;
-		}
+		100% { left: 0%; transform: translateY(0) rotate(-360deg) scale(0.8); opacity: 0; }
+	}
+	/* Cross-row: diagonal descent using top % (container spans both rows) */
+	@keyframes flyCrossRight {
+		0% { left: 0%; top: 0%; transform: rotate(-5deg) scale(0.9); opacity: 0; }
+		5% { opacity: 1; }
+		40% { left: 40%; top: 35%; transform: rotate(90deg) scale(1); opacity: 1; }
+		75% { left: 80%; top: 75%; transform: rotate(250deg) scale(1); opacity: 1; }
+		95% { left: 98%; top: 95%; transform: rotate(340deg) scale(0.9); opacity: 0.8; }
+		100% { left: 100%; top: 100%; transform: rotate(360deg) scale(0.85); opacity: 0; }
+	}
+	@keyframes flyCrossLeft {
+		0% { left: 100%; top: 0%; transform: rotate(5deg) scale(0.9); opacity: 0; }
+		5% { opacity: 1; }
+		40% { left: 60%; top: 35%; transform: rotate(-90deg) scale(1); opacity: 1; }
+		75% { left: 20%; top: 75%; transform: rotate(-250deg) scale(1); opacity: 1; }
+		95% { left: 2%; top: 95%; transform: rotate(-340deg) scale(0.9); opacity: 0.8; }
+		100% { left: 0%; top: 100%; transform: rotate(-360deg) scale(0.85); opacity: 0; }
 	}
 </style>
