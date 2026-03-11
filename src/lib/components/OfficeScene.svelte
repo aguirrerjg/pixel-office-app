@@ -335,11 +335,13 @@
 			{@const goingRight = deleg.toPct > deleg.fromPct}
 			{@const fromRow = agentRowMap[deleg.from] ?? 0}
 			{@const toRow = agentRowMap[deleg.to] ?? 0}
-			{@const paperTop = getRowStyle(Math.min(fromRow, toRow), rows.length).paperTop}
+			{@const fromTop = getRowStyle(fromRow, rows.length).paperTop}
+			{@const toTop = getRowStyle(toRow, rows.length).paperTop}
+			{@const dropPx = (toTop - fromTop) * 3}
 			<div
 				class="paper-toss"
 				class:going-left={!goingRight}
-				style="left:{minPct}%;width:{maxPct - minPct}%;top:{paperTop}%"
+				style="left:{minPct}%;width:{Math.max(maxPct - minPct, 12)}%;top:{fromTop}%;--drop:{dropPx}px"
 			>
 				<div class="paper p1" style="--paper-accent:{deleg.color}"><div class="paper-fold"></div></div>
 				<div class="paper p2" style="--paper-accent:{deleg.color}"><div class="paper-fold"></div></div>
@@ -1374,7 +1376,7 @@
 		clip-path: polygon(100% 0, 0 100%, 100% 100%);
 	}
 
-	/* Flying right (from < to) */
+	/* Flying right (from < to) — uses --drop for cross-row vertical movement */
 	@keyframes flyRight {
 		0% {
 			left: 0%;
@@ -1384,13 +1386,13 @@
 		8% { opacity: 1; }
 		50% {
 			left: 50%;
-			transform: translateY(-100px) rotate(180deg) scale(1.1);
+			transform: translateY(calc(-80px + var(--drop, 0px) * 0.5)) rotate(180deg) scale(1.1);
 			opacity: 1;
 		}
 		92% { opacity: 0.7; }
 		100% {
 			left: 100%;
-			transform: translateY(0) rotate(360deg) scale(0.8);
+			transform: translateY(var(--drop, 0px)) rotate(360deg) scale(0.8);
 			opacity: 0;
 		}
 	}
@@ -1404,13 +1406,13 @@
 		8% { opacity: 1; }
 		50% {
 			left: 50%;
-			transform: translateY(-100px) rotate(-180deg) scale(1.1);
+			transform: translateY(calc(-80px + var(--drop, 0px) * 0.5)) rotate(-180deg) scale(1.1);
 			opacity: 1;
 		}
 		92% { opacity: 0.7; }
 		100% {
 			left: 0%;
-			transform: translateY(0) rotate(-360deg) scale(0.8);
+			transform: translateY(var(--drop, 0px)) rotate(-360deg) scale(0.8);
 			opacity: 0;
 		}
 	}
