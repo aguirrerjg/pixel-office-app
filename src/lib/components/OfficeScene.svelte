@@ -119,7 +119,7 @@
 			</div>
 		</div>
 	</header>
-	<div class="ws-area">
+	<div class="ws-area" style="--office-bg: url('/office-bg-{teamKey}.webp')">
 		<!-- BACK WALL -->
 		<div class="back-wall">
 			<div class="wall-trim-top"></div>
@@ -359,8 +359,8 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		background: #2a1f14;
-		border: 1px solid rgba(180, 140, 80, 0.2);
+		background: #0e1218;
+		border: 1px solid rgba(100, 120, 160, 0.2);
 		border-radius: 8px;
 		overflow: hidden;
 		min-height: 420px;
@@ -371,8 +371,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 8px 16px;
-		background: linear-gradient(180deg, #3a2d1e 0%, #2a1f14 100%);
-		border-bottom: 1px solid rgba(180, 140, 80, 0.15);
+		background: linear-gradient(180deg, #1a2030 0%, #0e1218 100%);
+		border-bottom: 1px solid rgba(100, 120, 160, 0.15);
 	}
 	.header-left { display: flex; align-items: center; gap: 8px; }
 	.header-right { display: flex; align-items: center; }
@@ -399,19 +399,16 @@
 		position: relative;
 		overflow: hidden;
 		min-height: 380px;
-		background: #c4a46e;
+		background: #1a1f29;
+		background-image: var(--office-bg);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 
-	/* ═══ BACK WALL ═══ */
+	/* ═══ BACK WALL (hidden — replaced by background image) ═══ */
 	.back-wall {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 58%;
-		background: linear-gradient(180deg, #c4a878 0%, #b89a6a 50%, #a88d5c 100%);
-		border-bottom: 4px solid #8a7550;
-		z-index: 0;
+		display: none;
 	}
 	/* Horizontal wood plank lines */
 	.back-wall::before {
@@ -929,14 +926,9 @@
 	.circuit-chip.cp2 { top: 65%; left: 72%; }
 
 	/* ═══ FLOOR (warm light wood) ═══ */
+	/* Floor hidden — replaced by background image */
 	.floor {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 42%;
-		background: linear-gradient(180deg, #c4a46e 0%, #b89860 8%, #c8a870 30%, #d0b078 60%, #c4a468 100%);
-		z-index: 0;
+		display: none;
 	}
 	.floor-plank {
 		position: absolute;
@@ -983,11 +975,10 @@
 		left: 2%;
 		right: 2%;
 		height: 10px;
-		background: linear-gradient(180deg, #f0e4cc 0%, #e8d8b8 40%, #ddd0a8 100%);
+		background: linear-gradient(180deg, rgba(240,228,204,0.3) 0%, rgba(232,216,184,0.2) 100%);
 		border-radius: 50% 50% 0 0 / 80% 80% 0 0;
-		border: 2px solid rgba(180, 160, 120, 0.4);
+		border: 1px solid rgba(180, 160, 120, 0.15);
 		border-bottom: none;
-		box-shadow: 0 -3px 12px rgba(0,0,0,0.1);
 		z-index: 10;
 	}
 	/* Subtle desk edge highlight */
@@ -1007,11 +998,9 @@
 		left: 0;
 		right: 0;
 		height: 36px;
-		background: linear-gradient(180deg, #a08050 0%, #8a6c42 40%, #7a5e38 100%);
+		background: linear-gradient(180deg, rgba(60,50,40,0.5) 0%, rgba(40,35,25,0.6) 100%);
 		border-radius: 0 0 50% 50% / 0 0 30% 30%;
-		border: 2px solid rgba(100, 80, 50, 0.3);
-		border-top: 1px solid #b89060;
-		box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+		border: 1px solid rgba(100, 80, 50, 0.15);
 		z-index: 10;
 	}
 	/* Wood grain on front panel */
@@ -1024,13 +1013,7 @@
 			repeating-linear-gradient(0deg, transparent 0px, transparent 4px, rgba(0,0,0,0.04) 4px, rgba(0,0,0,0.04) 5px);
 	}
 	.desk-leg {
-		position: absolute;
-		bottom: -18px;
-		width: 8px;
-		height: 22px;
-		background: linear-gradient(180deg, #7a5e38 0%, #5a4528 100%);
-		border-radius: 0 0 3px 3px;
-		z-index: 0;
+		display: none;
 	}
 	.desk-leg.dl { left: 12%; }
 	.desk-leg.dr { right: 12%; }
@@ -1056,10 +1039,7 @@
 
 	/* ── Coffee mug ── */
 	.coffee-mug {
-		position: absolute;
-		bottom: 48px;
-		right: 22%;
-		z-index: 11;
+		display: none;
 	}
 	.mug-body {
 		width: 10px;
@@ -1093,11 +1073,9 @@
 		100% { opacity: 0; transform: translateY(-8px) scaleX(0.8); }
 	}
 
-	/* ═══ PLANTS (tall trees) ═══ */
+	/* Plants hidden — replaced by background image */
 	.plant {
-		position: absolute;
-		bottom: 10%;
-		z-index: 7;
+		display: none;
 	}
 	.plant.left { left: 1%; }
 	.plant.right { right: 1%; }
