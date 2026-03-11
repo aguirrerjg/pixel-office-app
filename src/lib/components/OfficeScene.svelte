@@ -308,9 +308,14 @@
 						<div class="work-pulse"></div>
 						<!-- Character -->
 						<PixelCharacter {agent} agentState={agentState} activity={getAgentActivity(agent.id)} />
-						<!-- Name pill (individual) -->
-						<div class="name-pill" style="--pill-color:{agent.color}">
-							{agent.name}
+						<!-- Unified agent card: name + task -->
+						<div class="agent-card" style="--pill-color:{agent.color}">
+							<span class="agent-card-name">{agent.name}</span>
+							{#if getAgentActivity(agent.id) && (agentState === 'working' || agentState === 'thinking')}
+								<span class="agent-card-task {agentState}">{getAgentActivity(agent.id)}</span>
+							{:else}
+								<span class="agent-card-status">{agentState.toUpperCase()}</span>
+							{/if}
 						</div>
 					</div>
 				{/each}
@@ -1033,25 +1038,7 @@
 	.desk-leg.dl { left: 12%; }
 	.desk-leg.dr { right: 12%; }
 
-	/* ── Name pills on desk front ── */
-	.name-pill {
-		position: absolute;
-		bottom: -22px;
-		left: 50%;
-		transform: translateX(-50%);
-		background: color-mix(in srgb, var(--pill-color, #4caf50) 70%, #1a1a2e 30%);
-		color: #fff;
-		font-family: 'Chakra Petch', monospace;
-		font-size: 10px;
-		font-weight: 700;
-		letter-spacing: 0.5px;
-		padding: 2px 10px;
-		border-radius: 10px;
-		white-space: nowrap;
-		box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
-		z-index: 12;
-		text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-	}
+	/* ── Name pills (legacy, replaced by agent-card) ── */
 
 	/* ── Coffee mug ── */
 	.coffee-mug {
@@ -1178,14 +1165,68 @@
 		transform: translateX(-50%) scale(var(--agent-scale, 1.25));
 		transform-origin: bottom center;
 	}
-	/* Hide default PixelCharacter labels — names are on desk pills, status below desk */
+	/* Hide default PixelCharacter labels — replaced by unified agent-card */
 	.workstation-wrap :global(.ws-label-top) {
 		display: none !important;
 	}
 	.workstation-wrap :global(.ws-label-bottom) {
-		bottom: auto;
-		top: calc(100% + 4px);
+		display: none !important;
+	}
+
+	/* ── Unified agent card: name + task in one block ── */
+	.agent-card {
+		position: absolute;
+		top: calc(100% + 2px);
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 3px;
 		z-index: 20;
+		width: max-content;
+		max-width: 150px;
+	}
+	.agent-card-name {
+		font-family: 'Chakra Petch', monospace;
+		font-size: 10px;
+		font-weight: 700;
+		letter-spacing: 0.5px;
+		color: #fff;
+		background: color-mix(in srgb, var(--pill-color, #4caf50) 75%, #000 25%);
+		padding: 2px 10px;
+		border-radius: 4px;
+		white-space: nowrap;
+		text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	}
+	.agent-card-status {
+		font-family: 'Fira Code', monospace;
+		font-size: 8px;
+		color: #8a9ab5;
+		letter-spacing: 0.5px;
+	}
+	.agent-card-task {
+		font-family: 'Fira Code', monospace;
+		font-size: 8px;
+		font-weight: 500;
+		padding: 3px 7px;
+		border-radius: 4px;
+		text-align: center;
+		line-height: 1.35;
+		white-space: normal;
+		max-width: 150px;
+	}
+	.agent-card-task.working {
+		background: rgba(0, 25, 35, 0.92);
+		color: #00e5ff;
+		border: 1px solid rgba(0, 229, 255, 0.3);
+		text-shadow: 0 0 4px rgba(0, 229, 255, 0.3);
+	}
+	.agent-card-task.thinking {
+		background: rgba(25, 12, 50, 0.92);
+		color: #c8a0ff;
+		border: 1px solid rgba(179, 136, 255, 0.3);
+		text-shadow: 0 0 4px rgba(179, 136, 255, 0.3);
 	}
 
 	.workstation-wrap::before {
