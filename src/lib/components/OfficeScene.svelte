@@ -1341,8 +1341,8 @@
 		left: 0%;
 		width: 28px;
 		height: 34px;
-		background: linear-gradient(180deg, #f5f0e8 0%, #e8e0d0 100%);
-		border: 1.5px solid #c0b8a0;
+		background: linear-gradient(180deg, color-mix(in srgb, var(--paper-accent, #aaa) 15%, #f5f0e8) 0%, color-mix(in srgb, var(--paper-accent, #aaa) 20%, #e8e0d0) 100%);
+		border: 1.5px solid var(--paper-accent, #c0b8a0);
 		border-radius: 2px;
 		opacity: 0;
 		animation: flyRight 1.8s ease-in-out infinite;
@@ -1376,7 +1376,7 @@
 			transparent 1px,
 			transparent 3px
 		);
-		opacity: 0.4;
+		opacity: 0.6;
 		border-radius: 0.5px;
 	}
 	/* Folded corner */
@@ -1386,7 +1386,7 @@
 		right: 0;
 		width: 6px;
 		height: 6px;
-		background: #8a8070;
+		background: var(--paper-accent, #8a8070);
 		clip-path: polygon(100% 0, 0 100%, 100% 100%);
 	}
 
