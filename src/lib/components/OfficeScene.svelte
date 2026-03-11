@@ -1312,7 +1312,7 @@
 	/* ═══ PAPER TOSS (delegation animation) ═══ */
 	.paper-toss {
 		position: absolute;
-		height: 120px;
+		height: 160px;
 		pointer-events: none;
 		z-index: 50;
 	}
@@ -1320,15 +1320,15 @@
 		position: absolute;
 		bottom: 0;
 		left: 0%;
-		width: 18px;
-		height: 22px;
-		background: linear-gradient(180deg, #b8b0a0 0%, #9a9080 100%);
-		border: 1px solid #7a7060;
-		border-radius: 1px;
+		width: 28px;
+		height: 34px;
+		background: linear-gradient(180deg, #f5f0e8 0%, #e8e0d0 100%);
+		border: 1.5px solid #c0b8a0;
+		border-radius: 2px;
 		opacity: 0;
 		animation: flyRight 1.8s ease-in-out infinite;
 		transform-origin: center;
-		box-shadow: 1px 2px 4px rgba(0,0,0,0.25);
+		box-shadow: 2px 3px 8px rgba(0,0,0,0.35);
 	}
 	.going-left .paper { animation-name: flyLeft; }
 	.paper.p2 { animation-delay: 0.5s; }
