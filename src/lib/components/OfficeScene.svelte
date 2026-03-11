@@ -30,7 +30,7 @@
 		if (totalRows === 1) return { bottom: 22, scale: 1.45, spread: { start: 22, range: 56 }, paperTop: 62 };
 		// 2 rows: back smaller/higher, front bigger/lower
 		if (rowIdx === 0) return { bottom: 34, scale: 1.0, spread: { start: 22, range: 56 }, paperTop: 52 };
-		return { bottom: 8, scale: 1.3, spread: { start: 22, range: 56 }, paperTop: 78 };
+		return { bottom: 14, scale: 1.3, spread: { start: 22, range: 56 }, paperTop: 74 };
 	}
 
 	// Agent position map (id → left %)
