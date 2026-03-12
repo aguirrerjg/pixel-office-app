@@ -407,9 +407,14 @@
 		background-repeat: no-repeat;
 	}
 
-	/* ═══ BACK WALL (hidden — replaced by background image) ═══ */
+	/* ═══ BACK WALL (overlay on background image) ═══ */
 	.back-wall {
-		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		pointer-events: none;
 	}
 	/* Horizontal wood plank lines */
 	.back-wall::before {
@@ -443,22 +448,15 @@
 
 	/* Wall top trim/molding */
 	.wall-trim-top {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 6px;
-		background: linear-gradient(180deg, #d4b888 0%, #c4a878 50%, #b89868 100%);
-		border-bottom: 1px solid #a08858;
-		z-index: 4;
+		display: none;
 	}
 
 	/* ── Digital Whiteboard ── */
 	.whiteboard {
 		position: absolute;
 		top: 3%;
-		left: 3%;
-		width: 44%;
+		left: 10%;
+		width: 36%;
 		height: 80%;
 		z-index: 2;
 	}
@@ -581,8 +579,8 @@
 	.window {
 		position: absolute;
 		top: 3%;
-		right: 3%;
-		width: 44%;
+		right: 10%;
+		width: 36%;
 		height: 80%;
 		z-index: 2;
 	}
@@ -876,12 +874,7 @@
 
 	/* ── Circuit Board Pattern ── */
 	.circuit-panel {
-		position: absolute;
-		bottom: 0%;
-		left: 5%;
-		right: 5%;
-		height: 55%;
-		z-index: 1;
+		display: none;
 	}
 	.circuit-line {
 		position: absolute;
