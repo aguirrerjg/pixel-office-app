@@ -403,7 +403,7 @@
 		background: #1a1f29;
 		background-image: var(--office-bg);
 		background-size: cover;
-		background-position: 58% center;
+		background-position: center;
 		background-repeat: no-repeat;
 	}
 
